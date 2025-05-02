@@ -11,6 +11,12 @@ const Otp = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!email) {
+      navigate("/");
+    }
+  }, [email]);
+
   const inputRef = useRef([]);
 
   const handleChange = (e, index) => {
