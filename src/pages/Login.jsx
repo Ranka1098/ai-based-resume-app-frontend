@@ -23,13 +23,20 @@ const Login = () => {
       }
       setIsLoading(true);
 
-      const res = await axios.post("http://localhost:8080/api/auth/login", {
-        email: userInfo.email,
-        password: userInfo.password,
-      });
+      const res = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        {
+          email: userInfo.email,
+          password: userInfo.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
       if (res.status === 200) {
         alert("logged in successfull");
+        localStorage.setItem("token", res.data.token);
         navigate("/");
       }
       setIsLoading(false);

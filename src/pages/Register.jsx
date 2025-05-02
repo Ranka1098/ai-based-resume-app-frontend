@@ -28,15 +28,14 @@ const Register = () => {
         password: userInfo.password,
       });
 
-      console.log(res);
-
       if (res.status === 201 || res.status === 200) {
         alert("verify otp");
         navigate("/otp", { state: { email: userInfo.email } });
       }
-      setIsLoading(false);
     } catch (error) {
-      console.log(error.response?.data?.message);
+      alert(error.response?.data?.message);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
