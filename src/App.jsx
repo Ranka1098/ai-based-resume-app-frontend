@@ -7,16 +7,28 @@ import Home from "./pages/Home";
 import ForgetPassword from "./pages/ForgetPassword";
 import ProtectRoutes from "./pages/ProtectRoutes";
 import PublicRoutes from "./pages/PublicRoutes";
+import Layout from "./pages/Layout";
+import Dashbord from "./pages/Dashbord";
 
 const App = () => {
   const appRouter = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <ProtectRoutes>
-          <Home />
-        </ProtectRoutes>
-      ),
+      element: <Layout />,
+      children: [
+        {
+          index: true,
+          element: (
+            <ProtectRoutes>
+              <Home />
+            </ProtectRoutes>
+          ),
+        },
+        {
+          path: "/dashboard",
+          element: <Dashbord />,
+        },
+      ],
     },
     {
       path: "/register",
