@@ -9,6 +9,7 @@ import ProtectRoutes from "./pages/ProtectRoutes";
 import PublicRoutes from "./pages/PublicRoutes";
 import Layout from "./pages/Layout";
 import Dashbord from "./pages/Dashbord";
+import ResumeDetail from "./pages/ResumeDetail";
 
 const App = () => {
   const appRouter = createBrowserRouter([
@@ -29,6 +30,14 @@ const App = () => {
           element: <Dashbord />,
         },
       ],
+    },
+    {
+      path: "/resume/:id",
+      element: (
+        <ProtectRoutes>
+          <ResumeDetail />
+        </ProtectRoutes>
+      ),
     },
     {
       path: "/register",

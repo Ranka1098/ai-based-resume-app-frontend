@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AddButton from "./AddButton";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [resumeList, setAllResumeList] = useState([]);
@@ -34,9 +35,11 @@ const Home = () => {
         <div className="flex gap-4 flex-wrap">
           {resumeList.map((val) => (
             <div key={val.resumeId}>
-              <div className="w-36 h-36 bg-gray-200 flex justify-center text-wrap items-center cursor-pointer mt-5 border-2 border-dotted border-gray-400 rounded-md">
-                <p className="text-center">{val.title}</p>
-              </div>
+              <Link to={`/resume/${val.resumeId}`}>
+                <div className="w-36 h-36 bg-gray-200 flex justify-center text-wrap items-center cursor-pointer mt-5 border-2 border-dotted border-gray-400 rounded-md">
+                  <p className="text-center">{val.title}</p>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
