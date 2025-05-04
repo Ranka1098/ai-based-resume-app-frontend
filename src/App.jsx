@@ -29,16 +29,17 @@ const App = () => {
           path: "/dashboard",
           element: <Dashbord />,
         },
+        {
+          path: "/resume/:id",
+          element: (
+            <ProtectRoutes>
+              <ResumeDetail />
+            </ProtectRoutes>
+          ),
+        },
       ],
     },
-    {
-      path: "/resume/:id",
-      element: (
-        <ProtectRoutes>
-          <ResumeDetail />
-        </ProtectRoutes>
-      ),
-    },
+
     {
       path: "/register",
       element: (
