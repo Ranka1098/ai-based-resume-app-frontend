@@ -2,151 +2,110 @@ import React from "react";
 
 const ResumePreviewSection = () => {
   return (
-    <>
-      {/* personal info secton */}
-      <div className="border-t-[1rem] border-t-red-400">
-        <div>
-          {/* name */}
+    <div className="">
+      {/* Inner scrollable box */}
+      <div className="overflow-y-auto max-h-[80vh] bg-white p-5 rounded-md shadow-md">
+        {/* personal info section */}
+        <div className="border-t-[1rem] border-t-red-400">
+          {/* Name */}
           <h1 className="pt-5 text-center text-2xl font-bold">
             Ashokkumar Vaishnav
           </h1>
-          {/* title */}
+
+          {/* Title */}
           <h2 className="text-center text-xl font-bold">Frontend Developer</h2>
+
           {/* Address */}
-          <h2 className="text-center text-lg font-bold">Hadapsar,Pune</h2>
+          <h2 className="text-center text-lg font-bold">Hadapsar, Pune</h2>
 
-          {/* phone number or email */}
+          {/* Contact */}
           <div className="my-1 flex justify-between border-b-[3px] py-1 border-b-red-400">
-            {/* phone */}
-            <p className="text-center text-lg font-bold">9156776848</p>
-            {/* email */}
-            <p className="text-center text-lg font-bold">
-              ashokranka30@gmail.com
-            </p>
+            <p className="text-lg font-bold">9156776848</p>
+            <p className="text-lg font-bold">ashokranka30@gmail.com</p>
           </div>
-          {/* personal info secton */}
-          {/* ---------------------------------------------------------------------- */}
 
-          {/* summary section  */}
-          <div className="font-medium">
+          {/* Summary */}
+          <div className="font-medium my-3">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem
-            nulla ut consequatur ea dicta doloremque corporis ipsum, eos alias
-            odit optio minus placeat temporibus doloribus earum porro amet
-            adipisci id consequuntur eum explicabo reprehenderit sunt velit rem?
+            nulla ut consequatur ea dicta doloremque corporis ipsum...
           </div>
-          {/* summary section  */}
-          {/* ---------------------------------------------------------------------- */}
-          {/* ---------------------------------------------------------------------- */}
-          {/* professional experince ya project */}
 
-          <h1 className="text-center font-bold  text-red-400 mb-1 border-b-[2px] border-b-red-400">
+          {/* Experience Section */}
+          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
             Professional Information
           </h1>
+
+          {/* Example Experience */}
           <div>
-            {/* designation joining date */}
             <div className="flex justify-between mt-1">
-              <p className=" text-red-400 font-semibold flex flex-col">
+              <p className="text-red-400 font-semibold flex flex-col">
                 Full Stack Developer
-                <span className="font-semibold text-xs text-black">
-                  Amazon,New York
-                </span>
+                <span className="text-xs text-black">Amazon, New York</span>
               </p>
-              <p className="font-semibold">Jan 2021 Present</p>
+              <p className="font-semibold">Jan 2021 - Present</p>
             </div>
             <p className="mt-2">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut odio
-              explicabo incidunt enim reiciendis sapiente ab eius fuga ratione
-              distinctio quis voluptates sequi, accusantium eligendi.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit...
             </p>
           </div>
-          <div>
-            {/* designation joining date */}
-            <div className="flex justify-between mt-1">
-              <p className=" text-red-400 font-semibold flex flex-col">
-                Mern Stack Developer
-                <span className="font-semibold text-xs text-black">
-                  Google,Chorlotte,NC
-                </span>
-              </p>
-              <p className="font-semibold">Jan 2021 Present</p>
-            </div>
-            <p className="mt-2">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut odio
-              explicabo incidunt enim reiciendis sapiente ab eius fuga ratione
-              distinctio quis voluptates sequi, accusantium eligendi.
-            </p>
-          </div>
-          {/* professional experince ya project */}
-          {/* ---------------------------------------------------------------------- */}
-          {/* ---------------------------------------------------------------------- */}
-          {/* education */}
-          <h1 className="text-center font-bold  text-red-400 mb-1 border-b-[2px] border-b-red-400">
+
+          {/* Repeat experiences... */}
+
+          {/* Project Section */}
+          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
             PROJECT
           </h1>
           <div>
-            {/* designation joining date */}
-            <div className="flex justify-between mt-1">
-              <p className=" text-red-400 font-semibold flex flex-col">
-                Resume_Builder
-              </p>
+            <div className="mt-1">
+              <p className="text-red-400 font-semibold">Resume_Builder</p>
+              <ul>
+                <li>Authentication - OTP Based Via Authentication System</li>
+              </ul>
             </div>
-            <ul>
-              <li className="">
-                Authentication - OTP Based Via Authentication System
-              </li>
-            </ul>
-            {/* ---------------------------------------------------------------- */}
-            <div className="flex justify-between mt-1">
-              <p className=" text-red-400 font-semibold flex flex-col">
-                Real Time video caling and Chat
+            <div className="mt-1">
+              <p className="text-red-400 font-semibold">
+                Real Time Video Calling & Chat
               </p>
+              <ul>
+                <li>OTP Authentication System</li>
+                <li>Real-time Notification System</li>
+              </ul>
             </div>
-            <ul>
-              <li className="">
-                Authentication - OTP Based Via Authentication System
-              </li>
-              <li>notification - realtime notifcation System</li>
-            </ul>
-            {/* ---------------------------------------------------------------- */}
-            <div className="flex justify-between mt-1">
-              <p className=" text-red-400 font-semibold flex flex-col">
-                Doctor Appoinent ment System
+            <div className="mt-1">
+              <p className="text-red-400 font-semibold">
+                Doctor Appointment System
               </p>
+              <ul>
+                <li>OTP Authentication</li>
+                <li>Real-time Calling and Notifications</li>
+                <li>Patient Appointment Booking</li>
+              </ul>
             </div>
-            <ul>
-              <li className="">
-                Authentication - OTP Based Via Authentication System
-              </li>
-              <li>
-                notification - realtime notifcation System calling -real time
-              </li>
-              <li>calling to paitent appointment booking system</li>
-            </ul>
           </div>
-          {/* education */}
-          {/* ---------------------------------------------------------------------- */}
+
+          {/* Skills */}
+          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+            SKILL
+          </h1>
+          <ul className="flex gap-5 flex-wrap">
+            <li className="font-semibold">HTML</li>
+            <li className="font-semibold">CSS</li>
+            <li className="font-semibold">JavaScript</li>
+            <li className="font-semibold">React</li>
+            <li className="font-semibold">Node.js</li>
+            <li className="font-semibold">GitHub</li>
+          </ul>
+
+          {/* Education */}
+          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+            EDUCATION
+          </h1>
+          <p>
+            BSC Computer Science from Annasaheb Magar College, Pune University
+          </p>
         </div>
-        {/* -------------------Skill--------------------------- */}
-        <h1 className="text-center font-bold  text-red-400 mb-1 border-b-[2px] border-b-red-400">
-          SKILL
-        </h1>
-        <ul className="flex gap-5 flex-wrap   ">
-          <li className="font-semibold text-md">HTML</li>
-          <li className="font-semibold text-md">CSS</li>
-          <li className="font-semibold text-md">JAVASCRIPT</li>
-          <li className="font-semibold text-md">REACT</li>
-          <li className="font-semibold text-md">NODE JS</li>
-          <li className="font-semibold text-md">GITHUB</li>
-        </ul>
-        {/* -------------------Skill--------------------------- */}
-        <h1 className="text-center font-bold  text-red-400 mb-1 border-b-[2px] border-b-red-400">
-          EDUCATION
-        </h1>
-        <p>
-          BSC computer Science from Annasaheb magar colleage pune University
-        </p>
       </div>
-    </>
+    </div>
   );
 };
 

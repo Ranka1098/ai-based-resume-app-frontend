@@ -17,7 +17,7 @@ const FormSection = () => {
   });
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-4">
+    <div className="max-w-4xl mx-auto px-4 ">
       {/* Logo and Button */}
       <div className="flex items-center justify-between mb-10">
         <div className="flex items-center gap-2 border border-gray-400 rounded-md p-2 w-[6rem]">
