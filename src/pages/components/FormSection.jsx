@@ -48,8 +48,9 @@ const FormSection = () => {
             email: "",
           }}
           validationSchema={validationSchema}
-          onSubmit={(values) => {
+          onSubmit={(values, { resetForm }) => {
             console.log("Form Values:", values);
+            resetForm();
           }}
         >
           <Form className="grid grid-cols-1 md:grid-cols-2 gap-6">
