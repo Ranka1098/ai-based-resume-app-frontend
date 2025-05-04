@@ -1,9 +1,35 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { FaPlusSquare } from "react-icons/fa";
+import { v4 as uuidv4 } from "uuid";
 
-const AddButton = () => {
+const AddButton = ({ onResumeAdded }) => {
   const [showDialog, setShowDialog] = useState(false);
   const [title, setTitle] = useState("");
+
+  const user = JSON.parse(localStorage.getItem("user") || {});
+
+  const handleClicked = async () => {
+    try {
+      const res = await axios.post("http://localhost:8080/resumeInfo", {
+        title: title,
+        userName: user.name,
+        userEmail: user.email,
+        resumeId: uuidv4(),
+      });
+
+      if (res.status === 200) {
+        alert("resume created");
+      }
+      if (onResumeAdded) {
+        onResumeAdded();
+      }
+    } catch (error) {
+      alert(error.response.data.message);
+    } finally {
+      setShowDialog(false);
+    }
+  };
 
   return (
     <div>
@@ -36,9 +62,8 @@ const AddButton = () => {
                 Cancel
               </button>
               <button
-                onClick={() => {
-                  setShowDialog(false);
-                }}
+                onClick={handleClicked}
+                disabled={!title}
                 className="px-4 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
               >
                 Create
