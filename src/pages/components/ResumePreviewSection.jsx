@@ -4,7 +4,7 @@ const ResumePreviewSection = () => {
   return (
     <div className="">
       {/* Inner scrollable box */}
-      <div className="overflow-y-auto max-h-[80vh] bg-white p-5 rounded-md shadow-md">
+      <div className="overflow-y-scroll max-h-[85vh] bg-white p-5 rounded-md shadow-md">
         {/* personal info section */}
         <div className="border-t-[1rem] border-t-red-400">
           {/* Name */}
