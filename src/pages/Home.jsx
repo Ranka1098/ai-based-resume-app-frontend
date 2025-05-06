@@ -34,8 +34,8 @@ const Home = () => {
         </div>
         <div className="flex gap-4 flex-wrap">
           {resumeList.map((val) => (
-            <div key={val.resumeId}>
-              <Link to={`/resume/${val.resumeId}`}>
+            <div key={val._id}>
+              <Link to={`/resume/${val._id}`}>
                 <div className="w-36 h-36 bg-gray-200 flex justify-center text-wrap items-center cursor-pointer mt-5 border-2 border-dotted border-gray-400 rounded-md">
                   <p className="text-center">{val.title}</p>
                 </div>

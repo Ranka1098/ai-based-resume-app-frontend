@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import FormContext from "@/context/FormContext";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const PersonalDetail = () => {
+const PersonalDetail = ({ id }) => {
   const { formData, updateFormData } = useContext(FormContext);
 
   const handleChange = (e) => {
@@ -12,9 +14,26 @@ const PersonalDetail = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  console.log("resume is", id);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form data", formData);
+    try {
+      const res = await axios.put(`http://localhost:8080/personDetail/${id}`, {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        jobTitle: formData.jobTitle,
+        address: formData.address,
+        phone: formData.phone,
+        email: formData.email,
+      });
+
+      if (res.status === 200) {
+        alert("personal detail added successfully");
+      }
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   };
   return (
     <div className="max-w-3xl mx-auto my-6">

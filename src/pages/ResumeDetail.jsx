@@ -7,7 +7,7 @@ const ResumeDetail = () => {
   const { id } = useParams();
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 mx-16 py-5 gap-10">
-      <FormSection />
+      <FormSection id={id} />
 
       <ResumePreviewSection />
     </div>

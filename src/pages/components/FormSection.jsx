@@ -4,7 +4,8 @@ import { FaArrowRight } from "react-icons/fa6";
 import PersonalDetail from "./PersonalDetail";
 import { FaArrowLeft } from "react-icons/fa6";
 
-const FormSection = () => {
+const FormSection = ({ id }) => {
+  console.log("id", id);
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   return (
     <>
@@ -36,7 +37,7 @@ const FormSection = () => {
             </button>
           </div>
         </div>
-        {activeFormIndex === 1 && <PersonalDetail />}
+        {activeFormIndex === 1 && <PersonalDetail id={id} />}
       </div>
     </>
   );
