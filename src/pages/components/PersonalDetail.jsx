@@ -1,161 +1,133 @@
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import React, { useContext } from "react";
+import FormContext from "@/context/FormContext";
 
 const PersonalDetail = () => {
-  const validationSchema = Yup.object({
-    firstName: Yup.string().required("First name is required"),
-    lastName: Yup.string().required("Last name is required"),
-    jobTitle: Yup.string().required("Job title is required"),
-    address: Yup.string().required("Address is required"),
-    phone: Yup.string()
-      .required("Phone number is required")
-      .length(10, "Phone number must be exactly 10 digits"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-  });
+  const { formData, updateFormData } = useContext(FormContext);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    updateFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("form data", formData);
+  };
   return (
-    <div>
-      {" "}
-      {/* Form Card */}
-      <div className="border-[3px] border-t-purple-600 p-6 rounded-lg shadow-md bg-white">
-        <h1 className="text-2xl font-bold text-gray-800 mb-1">
-          Personal Detail
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Get started with the basic information
-        </p>
+    <div className="max-w-3xl mx-auto my-6">
+      <form
+        onSubmit={handleSubmit}
+        className="border p-6 border-t-[5px] border-t-purple-600 rounded-2xl bg-white shadow-lg"
+      >
+        <h2 className="text-2xl font-bold text-gray-800 mb-1">
+          Personal Details
+        </h2>
+        <h3 className="font-semibold text-md mb-3">
+          Add your personal details
+        </h3>
 
-        <Formik
-          initialValues={{
-            firstName: "",
-            lastName: "",
-            jobTitle: "",
-            address: "",
-            phone: "",
-            email: "",
-          }}
-          validationSchema={validationSchema}
-          onSubmit={(values, { resetForm }) => {
-            console.log("Form Values:", values);
-            resetForm();
-          }}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* First Name */}
+          <div className="flex flex-col">
+            <label htmlFor="firstName" className="font-semibold mb-1">
+              First Name
+            </label>
+            <input
+              name="firstName"
+              type="text"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="Enter first name"
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Last Name */}
+          <div className="flex flex-col">
+            <label htmlFor="lastName" className="font-semibold mb-1">
+              Last Name
+            </label>
+            <input
+              name="lastName"
+              type="text"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Enter last name"
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Job Title */}
+          <div className="flex flex-col">
+            <label htmlFor="jobTitle" className="font-semibold mb-1">
+              Job Title
+            </label>
+            <input
+              name="jobTitle"
+              type="text"
+              value={formData.jobTitle}
+              onChange={handleChange}
+              placeholder="Enter job title"
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Address */}
+          <div className="flex flex-col">
+            <label htmlFor="address" className="font-semibold mb-1">
+              Address
+            </label>
+            <input
+              name="address"
+              type="text"
+              value={formData.address}
+              onChange={handleChange}
+              placeholder="Enter address"
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Phone */}
+          <div className="flex flex-col">
+            <label htmlFor="phone" className="font-semibold mb-1">
+              Phone Number
+            </label>
+            <input
+              name="phone"
+              type="text"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Enter phone number"
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Email */}
+          <div className="flex flex-col">
+            <label htmlFor="email" className="font-semibold mb-1">
+              Email
+            </label>
+            <input
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter email"
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          className="mt-6 w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-md transition duration-200"
         >
-          <Form className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* First Name */}
-            <div className="flex flex-col">
-              <label htmlFor="firstName" className="mb-1 font-medium">
-                First Name
-              </label>
-              <Field
-                name="firstName"
-                type="text"
-                className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <ErrorMessage
-                name="firstName"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Last Name */}
-            <div className="flex flex-col">
-              <label htmlFor="lastName" className="mb-1 font-medium">
-                Last Name
-              </label>
-              <Field
-                name="lastName"
-                type="text"
-                className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <ErrorMessage
-                name="lastName"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Job Title */}
-            <div className="flex flex-col">
-              <label htmlFor="jobTitle" className="mb-1 font-medium">
-                Job Title
-              </label>
-              <Field
-                name="jobTitle"
-                type="text"
-                className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <ErrorMessage
-                name="jobTitle"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Address */}
-            <div className="flex flex-col">
-              <label htmlFor="address" className="mb-1 font-medium">
-                Address
-              </label>
-              <Field
-                name="address"
-                type="text"
-                className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <ErrorMessage
-                name="address"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Phone */}
-            <div className="flex flex-col">
-              <label htmlFor="phone" className="mb-1 font-medium">
-                Phone Number
-              </label>
-              <Field
-                name="phone"
-                type="text"
-                className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <ErrorMessage
-                name="phone"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Email */}
-            <div className="flex flex-col">
-              <label htmlFor="email" className="mb-1 font-medium">
-                Email
-              </label>
-              <Field
-                name="email"
-                type="email"
-                className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <div className="md:col-span-2 mt-4">
-              <button
-                type="submit"
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200"
-              >
-                Submit
-              </button>
-            </div>
-          </Form>
-        </Formik>
-      </div>
+          Submit
+        </button>
+      </form>
     </div>
   );
 };

@@ -1,6 +1,11 @@
-import React from "react";
+import FormContext from "@/context/FormContext";
+import React, { useContext } from "react";
+import { CiMobile3 } from "react-icons/ci";
+import { MdOutlineMail } from "react-icons/md";
 
 const ResumePreviewSection = () => {
+  const { formData } = useContext(FormContext);
+
   return (
     <div className="">
       {/* Inner scrollable box */}
@@ -9,19 +14,30 @@ const ResumePreviewSection = () => {
         <div className="border-t-[1rem] border-t-red-400">
           {/* Name */}
           <h1 className="pt-5 text-center text-2xl font-bold">
-            Ashokkumar Vaishnav
+            {formData.firstName} {formData.lastName}
           </h1>
 
           {/* Title */}
-          <h2 className="text-center text-xl font-bold">Frontend Developer</h2>
+          <h2 className="text-center text-xl font-bold">{formData.jobTitle}</h2>
 
           {/* Address */}
-          <h2 className="text-center text-lg font-bold">Hadapsar, Pune</h2>
+          <h2 className="text-center text-lg font-bold"> {formData.address}</h2>
 
           {/* Contact */}
           <div className="my-1 flex justify-between border-b-[3px] py-1 border-b-red-400">
-            <p className="text-lg font-bold">9156776848</p>
-            <p className="text-lg font-bold">ashokranka30@gmail.com</p>
+            {formData.phone ? (
+              <div className="flex items-center gap-2 justify-center">
+                <span className="text-xl">☎️</span>
+                <p className="text-lg font-bold"> {formData.phone}</p>
+              </div>
+            ) : null}
+
+            {formData.email ? (
+              <div className="flex justify-center items-center gap-2">
+                <span className="text-xl">📧</span>
+                <p className="text-lg font-bold"> {formData.email}</p>
+              </div>
+            ) : null}
           </div>
 
           {/* Summary */}
