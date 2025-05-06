@@ -9,7 +9,7 @@ const ResumeDetail = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 mx-16 py-5 gap-10">
       <FormSection id={id} />
 
-      <ResumePreviewSection />
+      <ResumePreviewSection id={id} />
     </div>
   );
 };

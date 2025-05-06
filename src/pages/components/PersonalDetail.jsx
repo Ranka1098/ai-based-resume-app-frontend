@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FormContext from "@/context/FormContext";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 const PersonalDetail = ({ id }) => {
   const { formData, updateFormData } = useContext(FormContext);
@@ -13,8 +12,6 @@ const PersonalDetail = ({ id }) => {
       [name]: value,
     });
   };
-
-  console.log("resume is", id);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
