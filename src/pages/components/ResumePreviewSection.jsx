@@ -1,12 +1,13 @@
 import FormContext from "@/context/FormContext";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { CiMobile3 } from "react-icons/ci";
-import { MdOutlineMail } from "react-icons/md";
+
+import { IoLocationOutline } from "react-icons/io5";
 
 const ResumePreviewSection = ({ id }) => {
   const { formData } = useContext(FormContext);
-  const [data, setData] = useState({});
+
+  const [data, setData] = useState(formData);
 
   useEffect(() => {
     const singleResume = async () => {
@@ -18,7 +19,11 @@ const ResumePreviewSection = ({ id }) => {
     };
 
     singleResume();
-  }, []);
+  }, [formData]);
+
+  const source = data || formData;
+
+  console.log("source", source);
 
   return (
     <div className="">
@@ -28,28 +33,35 @@ const ResumePreviewSection = ({ id }) => {
         <div className="border-t-[1rem] border-t-red-400">
           {/* Name */}
           <h1 className="pt-5 text-center text-2xl font-bold">
-            {data?.firstName} {data?.lastName}
+            {source.firstName || "FirstName"} {source.lastName || "lastName"}
           </h1>
 
           {/* Title */}
-          <h2 className="text-center text-xl font-bold">{data?.jobTitle}</h2>
+          <h2 className="text-center text-xl font-bold">
+            {source.jobTitle || "jobTitle"}
+          </h2>
 
           {/* Address */}
-          <h2 className="text-center text-lg font-bold"> {data?.address}</h2>
+          <h2 className="text-center text-lg font-bold my-2">
+            <div className="flex justify-center items-center gap-1">
+              <IoLocationOutline size={20} />
+              {source.address || "address"}
+            </div>
+          </h2>
 
           {/* Contact */}
           <div className="my-1 flex justify-between border-b-[3px] py-1 border-b-red-400">
-            {data?.phone ? (
+            {source?.phone ? (
               <div className="flex items-center gap-2 justify-center">
                 <span className="text-xl">☎️</span>
-                <p className="text-lg font-bold"> {data.phone}</p>
+                <p className="text-lg font-bold"> {source.phone || "phone"}</p>
               </div>
             ) : null}
 
-            {data?.email ? (
+            {source?.email ? (
               <div className="flex justify-center items-center gap-2">
                 <span className="text-xl">📧</span>
-                <p className="text-lg font-bold"> {data.email}</p>
+                <p className="text-lg font-bold"> {source.email || "email"} </p>
               </div>
             ) : null}
           </div>

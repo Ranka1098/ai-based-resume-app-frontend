@@ -7,6 +7,7 @@ const PersonalDetail = ({ id }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     updateFormData({
       ...formData,
       [name]: value,
@@ -27,6 +28,14 @@ const PersonalDetail = ({ id }) => {
 
       if (res.status === 200) {
         alert("personal detail added successfully");
+        updateFormData({
+          firstName: "",
+          lastName: "",
+          jobTitle: "",
+          address: "",
+          phone: "",
+          email: "",
+        });
       }
     } catch (error) {
       alert(error.response.data.message);
@@ -54,6 +63,7 @@ const PersonalDetail = ({ id }) => {
             <input
               name="firstName"
               type="text"
+              required
               value={formData.firstName}
               onChange={handleChange}
               placeholder="Enter first name"
@@ -69,6 +79,7 @@ const PersonalDetail = ({ id }) => {
             <input
               name="lastName"
               type="text"
+              required
               value={formData.lastName}
               onChange={handleChange}
               placeholder="Enter last name"
@@ -84,6 +95,7 @@ const PersonalDetail = ({ id }) => {
             <input
               name="jobTitle"
               type="text"
+              required
               value={formData.jobTitle}
               onChange={handleChange}
               placeholder="Enter job title"
@@ -99,6 +111,7 @@ const PersonalDetail = ({ id }) => {
             <input
               name="address"
               type="text"
+              required
               value={formData.address}
               onChange={handleChange}
               placeholder="Enter address"
@@ -113,7 +126,9 @@ const PersonalDetail = ({ id }) => {
             </label>
             <input
               name="phone"
-              type="text"
+              type="number"
+              maxLength={10}
+              required
               value={formData.phone}
               onChange={handleChange}
               placeholder="Enter phone number"
@@ -129,6 +144,7 @@ const PersonalDetail = ({ id }) => {
             <input
               name="email"
               type="email"
+              required
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter email"
