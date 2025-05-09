@@ -13,6 +13,7 @@ export const FormProvider = ({ children }) => {
     address: "",
     phone: "",
     email: "",
+    summery: "",
   });
 
   const updateFormData = (data) => {

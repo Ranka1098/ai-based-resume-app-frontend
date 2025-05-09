@@ -6,7 +6,9 @@ const Header = () => {
   return (
     <div className="flex justify-between items-center px-6 py-2 shadow-md bg-white sticky top-0 z-50 ">
       <div className=" ">
-        <img src={LOGO} alt="" width={65} />
+        <Link to={"/"}>
+          <img src={LOGO} alt="" width={65} />
+        </Link>
       </div>
 
       <div className="flex justify-between">

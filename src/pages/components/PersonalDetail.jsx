@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import FormContext from "@/context/FormContext";
 import axios from "axios";
 
-const PersonalDetail = ({ id }) => {
+const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
   const { formData, updateFormData } = useContext(FormContext);
 
   const handleChange = (e) => {
@@ -36,6 +36,8 @@ const PersonalDetail = ({ id }) => {
           phone: "",
           email: "",
         });
+
+        setActiveFormIndex(activeFormIndex + 1);
       }
     } catch (error) {
       alert(error.response.data.message);

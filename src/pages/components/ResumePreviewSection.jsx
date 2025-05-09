@@ -8,14 +8,15 @@ const ResumePreviewSection = ({ id }) => {
   const { formData } = useContext(FormContext);
 
   const [data, setData] = useState(formData);
+  console.log(data);
 
   useEffect(() => {
     const singleResume = async () => {
       const res = await axios.post(
         `http://localhost:8080/singleResumeDetail/${id}`
       );
-      console.log("res", res.data.personalInfo);
-      setData(res?.data?.personalInfo);
+      console.log("res", res.data);
+      setData(res?.data);
     };
 
     singleResume();
@@ -33,43 +34,49 @@ const ResumePreviewSection = ({ id }) => {
         <div className="border-t-[1rem] border-t-red-400">
           {/* Name */}
           <h1 className="pt-5 text-center text-2xl font-bold">
-            {source.firstName || "FirstName"} {source.lastName || "lastName"}
+            {source?.personalInfo?.firstName || "FirstName"}{" "}
+            {source?.personalInfo?.lastName || "lastName"}
           </h1>
 
           {/* Title */}
           <h2 className="text-center text-xl font-bold">
-            {source.jobTitle || "jobTitle"}
+            {source?.personalInfo?.jobTitle || "jobTitle"}
           </h2>
 
           {/* Address */}
           <h2 className="text-center text-lg font-bold my-2">
             <div className="flex justify-center items-center gap-1">
               <IoLocationOutline size={20} />
-              {source.address || "address"}
+              {source?.personalInfo?.address || "address"}
             </div>
           </h2>
 
           {/* Contact */}
           <div className="my-1 flex justify-between border-b-[3px] py-1 border-b-red-400">
-            {source?.phone ? (
+            {source?.personalInfo?.phone ? (
               <div className="flex items-center gap-2 justify-center">
                 <span className="text-xl">☎️</span>
-                <p className="text-lg font-bold"> {source.phone || "phone"}</p>
+                <p className="text-lg font-bold">
+                  {" "}
+                  {source?.personalInfo?.phone || "phone"}
+                </p>
               </div>
             ) : null}
 
-            {source?.email ? (
+            {source?.personalInfo?.email ? (
               <div className="flex justify-center items-center gap-2">
                 <span className="text-xl">📧</span>
-                <p className="text-lg font-bold"> {source.email || "email"} </p>
+                <p className="text-lg font-bold">
+                  {" "}
+                  {source?.personalInfo?.email || "email"}{" "}
+                </p>
               </div>
             ) : null}
           </div>
 
           {/* Summary */}
-          <div className="font-medium my-3">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem
-            nulla ut consequatur ea dicta doloremque corporis ipsum...
+          <div className="font-medium my-3  w-full whitespace-pre-wrap break-words">
+            {source.summery || " "}
           </div>
 
           {/* Experience Section */}

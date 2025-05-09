@@ -3,6 +3,7 @@ import { CiGrid41 } from "react-icons/ci";
 import { FaArrowRight } from "react-icons/fa6";
 import PersonalDetail from "./PersonalDetail";
 import { FaArrowLeft } from "react-icons/fa6";
+import Summery from "./Summery";
 
 const FormSection = ({ id }) => {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -36,7 +37,26 @@ const FormSection = ({ id }) => {
             </button>
           </div>
         </div>
-        {activeFormIndex === 1 && <PersonalDetail id={id} />}
+
+        {/* -------------------personal detail----------------------- */}
+        {activeFormIndex === 1 && (
+          <PersonalDetail
+            id={id}
+            setActiveFormIndex={setActiveFormIndex}
+            activeFormIndex={activeFormIndex}
+          />
+        )}
+        {/* -------------------personal detail----------------------- */}
+        {/* -------------------Summery detail----------------------- */}
+
+        {activeFormIndex === 2 && (
+          <Summery
+            id={id}
+            setActiveFormIndex={setActiveFormIndex}
+            activeFormIndex={activeFormIndex}
+          />
+        )}
+        {/* -------------------Summery detail----------------------- */}
       </div>
     </>
   );
