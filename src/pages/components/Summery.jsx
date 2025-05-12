@@ -5,7 +5,7 @@ import { LuBrain } from "react-icons/lu";
 import { ImCross } from "react-icons/im";
 import { Scale } from "lucide-react";
 
-const Summery = ({ id }) => {
+const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
   const { formData, updateFormData } = useContext(FormContext);
 
   const [aiSummery, setAiSummery] = useState(false);
@@ -72,6 +72,8 @@ const Summery = ({ id }) => {
           ...formData,
           summery: summeyResult,
         });
+
+        setActiveFormIndex(activeFormIndex + 1);
       }
     } catch (error) {
       alert(error.response.data.message);

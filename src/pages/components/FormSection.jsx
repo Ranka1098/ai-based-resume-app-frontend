@@ -4,6 +4,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import PersonalDetail from "./PersonalDetail";
 import { FaArrowLeft } from "react-icons/fa6";
 import Summery from "./Summery";
+import ProfessionalInfo from "./ProfessionalInfo";
 
 const FormSection = ({ id }) => {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -57,6 +58,16 @@ const FormSection = ({ id }) => {
           />
         )}
         {/* -------------------Summery detail----------------------- */}
+        {/* -------------------professional detail----------------------- */}
+
+        {activeFormIndex === 3 && (
+          <ProfessionalInfo
+            id={id}
+            setActiveFormIndex={setActiveFormIndex}
+            activeFormIndex={activeFormIndex}
+          />
+        )}
+        {/* -------------------professional detail----------------------- */}
       </div>
     </>
   );

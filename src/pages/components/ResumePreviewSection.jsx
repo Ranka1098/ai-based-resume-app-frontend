@@ -20,11 +20,9 @@ const ResumePreviewSection = ({ id }) => {
     };
 
     singleResume();
-  }, [formData]);
+  }, [formData, id]);
 
   const source = data || formData;
-
-  console.log("source", source);
 
   return (
     <div className="">
@@ -81,21 +79,59 @@ const ResumePreviewSection = ({ id }) => {
 
           {/* Experience Section */}
           <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
-            Professional Information
+            Experince
           </h1>
 
           {/* Example Experience */}
           <div>
-            <div className="flex justify-between mt-1">
+            {/* <div className="flex justify-between mt-1">
               <p className="text-red-400 font-semibold flex flex-col">
-                Full Stack Developer
-                <span className="text-xs text-black">Amazon, New York</span>
+                {source?.professionalInfo?.designation}
+                <span className="text-sm text-center text-black">
+                  {source?.professionalInfo?.companyName}
+                </span>
               </p>
-              <p className="font-semibold">Jan 2021 - Present</p>
+              <div className="flex gap-5">
+                <p className="font-semibold">
+                  {new Date(
+                    source?.professionalInfo?.startDate
+                  ).toLocaleDateString("en-GB")}{" "}
+                  - Current
+                </p>
+                {source?.professionalInfo?.endDate ? (
+                  <p className="font-semibold">
+                    {new Date(
+                      source?.professionalInfo?.endDate
+                    ).toLocaleDateString("en-GB")}{" "}
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
-            <p className="mt-2">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit...
-            </p>
+            <p className="mt-2">{source?.professionalInfo?.workSummery}</p> */}
+            {Array.isArray(source?.professionalInfo) &&
+              source.professionalInfo.map((exp, index) => (
+                <div key={exp._id || index} className="mb-4">
+                  <div className="flex justify-between mt-1">
+                    <p className="text-red-400 font-semibold flex flex-col">
+                      {exp.designation}
+                      <span className="text-sm text-center text-black">
+                        {exp.companyName}
+                      </span>
+                    </p>
+                    <div className="flex gap-5">
+                      <p className="font-semibold">
+                        {new Date(exp.startDate).toLocaleDateString("en-GB")} -{" "}
+                        {exp.endDate
+                          ? new Date(exp.endDate).toLocaleDateString("en-GB")
+                          : "Current"}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-2">{exp.workSummery}</p>
+                </div>
+              ))}
           </div>
 
           {/* Repeat experiences... */}
