@@ -5,6 +5,9 @@ import PersonalDetail from "./PersonalDetail";
 import { FaArrowLeft } from "react-icons/fa6";
 import Summery from "./Summery";
 import ProfessionalInfo from "./ProfessionalInfo";
+import ProjectInfo from "./ProjectInfo";
+import Skill from "./Skill";
+import Education from "./Education";
 
 const FormSection = ({ id }) => {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -30,12 +33,16 @@ const FormSection = ({ id }) => {
               </button>
             ) : null}
 
-            <button
-              onClick={() => setActiveFormIndex(activeFormIndex + 1)}
-              className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md shadow-md"
-            >
-              Next <FaArrowRight />
-            </button>
+            {activeFormIndex === 6 ? (
+              ""
+            ) : (
+              <button
+                onClick={() => setActiveFormIndex(activeFormIndex + 1)}
+                className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md shadow-md"
+              >
+                Next <FaArrowRight />
+              </button>
+            )}
           </div>
         </div>
 
@@ -68,6 +75,36 @@ const FormSection = ({ id }) => {
           />
         )}
         {/* -------------------professional detail----------------------- */}
+        {/* -------------------project detail----------------------- */}
+
+        {activeFormIndex === 4 && (
+          <ProjectInfo
+            id={id}
+            setActiveFormIndex={setActiveFormIndex}
+            activeFormIndex={activeFormIndex}
+          />
+        )}
+        {/* -------------------project detail----------------------- */}
+        {/* -------------------skill detail----------------------- */}
+
+        {activeFormIndex === 5 && (
+          <Skill
+            id={id}
+            setActiveFormIndex={setActiveFormIndex}
+            activeFormIndex={activeFormIndex}
+          />
+        )}
+        {/* -------------------skill detail----------------------- */}
+        {/* -------------------education detail----------------------- */}
+
+        {activeFormIndex === 6 && (
+          <Education
+            id={id}
+            setActiveFormIndex={setActiveFormIndex}
+            activeFormIndex={activeFormIndex}
+          />
+        )}
+        {/* -------------------education detail----------------------- */}
       </div>
     </>
   );

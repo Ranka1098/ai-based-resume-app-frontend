@@ -114,7 +114,7 @@ const ResumePreviewSection = ({ id }) => {
               source.professionalInfo.map((exp, index) => (
                 <div key={exp._id || index} className="mb-4">
                   <div className="flex justify-between mt-1">
-                    <p className="text-red-400 font-semibold flex flex-col">
+                    <p className="text-red-400 font-semibold flex gap-2 items-center">
                       {exp.designation}
                       <span className="text-sm text-center text-black">
                         {exp.companyName}

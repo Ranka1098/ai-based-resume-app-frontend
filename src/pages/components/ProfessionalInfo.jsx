@@ -10,7 +10,7 @@ const professionalInfo = {
   workSummery: "",
 };
 
-const ProfessionalInfo = ({ id }) => {
+const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
   const [expList, setExpList] = useState([professionalInfo]);
 
   const hadndleAddExp = () => {
@@ -75,16 +75,30 @@ const ProfessionalInfo = ({ id }) => {
     // ]);
   };
 
+  const handleSkip = () => {
+    setActiveFormIndex(activeFormIndex + 1);
+  };
+
   return (
     <div className="max-w-3xl mx-auto ">
       <div className="border p-6 border-t-[6px] border-t-purple-600 rounded-2xl bg-white shadow-md">
-        <h2 className="text-3xl font-bold text-gray-800 mb-1">
-          Professional Information
-        </h2>
+        <div className="flex justify-between">
+          <h2 className="text-3xl font-bold text-gray-800 mb-1">
+            Professional Experince
+          </h2>
+
+          <button
+            type="button"
+            onClick={handleSkip}
+            className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-all"
+          >
+            Skip
+          </button>
+        </div>
         <p className="text-gray-600 mb-5">Add your previous job experience</p>
 
         {expList?.map((item, index) => (
-          <form onSubmit={handleSubmit} className="" key={index}>
+          <div className="" key={index}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
               <div className="flex flex-col gap-1">
                 <label className="font-semibold">Designation</label>
@@ -175,8 +189,8 @@ const ProfessionalInfo = ({ id }) => {
                 className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
-            <div className="flex justify-between items-center mt-6">
-              <div className="flex gap-3">
+            <div className="my-3">
+              <div className="flex justify-between items-center ">
                 <button
                   type="button"
                   onClick={hadndleAddExp}
@@ -192,15 +206,18 @@ const ProfessionalInfo = ({ id }) => {
                   - Remove Exp.
                 </button>
               </div>
-              <button
-                type="submit"
-                className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-all"
-              >
-                Save
-              </button>
             </div>
-          </form>
+          </div>
         ))}
+        <div className="flex justify-center ">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="px-6 w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-all"
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   );
