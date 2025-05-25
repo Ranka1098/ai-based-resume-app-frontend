@@ -27,7 +27,17 @@ const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(projectList);
+    // Validation: check if any project has empty title or feature
+    const isEmpty = projectList.some(
+      (proj) => proj.title.trim() === "" || proj.feature.trim() === ""
+    );
+
+    if (isEmpty) {
+      alert(
+        "Please fill in all project titles and features before submitting."
+      );
+      return;
+    }
 
     try {
       const res = await axios.post(`http://localhost:8080/projects/${id}`, {
