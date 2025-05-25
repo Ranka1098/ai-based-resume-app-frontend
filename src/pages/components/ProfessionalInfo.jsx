@@ -37,16 +37,23 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
     setExpList(updatedList);
   };
 
-  const handleEditorChange = (e, index) => {
-    const updatedWorkSummary = e.target.value; // innerText se plain text nikaalna
-    // Create a copy of the array to avoid mutating state directly
-    const updatedList = [...expList];
-    updatedList[index].workSummery = updatedWorkSummary;
-    setExpList(updatedList);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const isEmpty = expList.some(
+      (pro) =>
+        pro.designation.trim() === "" ||
+        pro.companyName.trim() === "" ||
+        pro.companyName.trim() === "" ||
+        pro.city.trim() === "" ||
+        pro.state.trim() === "" ||
+        pro.startDate.trim() === "" ||
+        pro.workSummery.trim() === ""
+    );
+    if (isEmpty) {
+      alert("fill empty filed");
+      return;
+    }
     try {
       const res = await axios.post(
         `http://localhost:8080/professionalDetail/${id}`,
@@ -58,21 +65,11 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
       if (res.status === 200) {
         alert("professional info added");
         setExpList([{ ...professionalInfo }]);
+        setActiveFormIndex(activeFormIndex + 1);
       }
     } catch (error) {
       console.error(error.response?.data?.message || error.message);
     }
-    // setExpList([
-    //   {
-    //     designation: "",
-    //     companyName: "",
-    //     city: "",
-    //     state: "",
-    //     startDate: "",
-    //     endDate: "",
-    //     workSummery: "",
-    //   },
-    // ]);
   };
 
   const handleSkip = () => {

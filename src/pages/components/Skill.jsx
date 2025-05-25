@@ -3,22 +3,18 @@ import React, { useState } from "react";
 
 const Skill = ({ id, activeFormIndex, setActiveFormIndex }) => {
   const [skillInput, setSkillInput] = useState("");
-  const [isSkill, setIsSkill] = useState([]);
 
   const handleAddSkill = async () => {
-    if (!skillInput.trim() === "") {
-      alert("add you skill");
+    if (skillInput.trim() === "") {
+      alert("enter skill");
+      return;
     }
-
-    const updatedSkills = [...isSkill, skillInput];
-
     const res = await axios.post(`http://localhost:8080/skill/${id}`, {
       skill: skillInput,
     });
 
     if (res.status === 200) {
       alert("skill added successfully");
-      setIsSkill(updatedSkills);
 
       setSkillInput("");
       setActiveFormIndex(activeFormIndex + 1);
