@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   const [resumeList, setAllResumeList] = useState([]);
-  console.log(resumeList);
 
   const getResume = async () => {
     try {

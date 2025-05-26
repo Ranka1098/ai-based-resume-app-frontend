@@ -41,10 +41,11 @@ const Education = ({ id }) => {
             value={education}
             onChange={handleEducationChange}
           ></textarea>
-          <div className=" text-center bg-purple-500 text-white mt-5 border p-2 rounded-md">
-            <button onClick={handleSubmit} type="button">
-              Add Your Skill
-            </button>
+          <div
+            onClick={handleSubmit}
+            className=" text-center cursor-pointer bg-purple-500 text-white mt-5 border p-2 rounded-md"
+          >
+            <button type="button">Add Your Skill</button>
           </div>
         </div>
       </div>

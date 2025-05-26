@@ -96,6 +96,9 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
 
         {expList?.map((item, index) => (
           <div className="" key={index}>
+            <p>
+              {"Experince "} {index + 1}
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
               <div className="flex flex-col gap-1">
                 <label className="font-semibold">Designation</label>
@@ -186,26 +189,28 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
                 className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
-            <div className="my-3">
-              <div className="flex justify-between items-center ">
-                <button
-                  type="button"
-                  onClick={hadndleAddExp}
-                  className="px-4 py-2 border-2 border-green-500 text-green-700 rounded-md hover:bg-green-500 hover:text-white transition-all"
-                >
-                  + Add More Exp.
-                </button>
-                <button
-                  type="button"
-                  onClick={hadndleRmvExp}
-                  className="px-4 py-2 border-2 border-red-500 text-red-700 rounded-md hover:bg-red-500 hover:text-white transition-all"
-                >
-                  - Remove Exp.
-                </button>
-              </div>
-            </div>
+            <hr className="my-5 h-[1rem]" />
           </div>
         ))}
+
+        <div className="my-3">
+          <div className="flex justify-between items-center ">
+            <button
+              type="button"
+              onClick={hadndleAddExp}
+              className="px-4 py-2 border-2 border-green-500 text-green-700 rounded-md hover:bg-green-500 hover:text-white transition-all"
+            >
+              + Add More Exp.
+            </button>
+            <button
+              type="button"
+              onClick={hadndleRmvExp}
+              className="px-4 py-2 border-2 border-red-500 text-red-700 rounded-md hover:bg-red-500 hover:text-white transition-all"
+            >
+              - Remove Exp.
+            </button>
+          </div>
+        </div>
         <div className="flex justify-center ">
           <button
             type="button"

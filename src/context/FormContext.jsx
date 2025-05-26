@@ -7,22 +7,35 @@ const FormContext = createContext();
 export const FormProvider = ({ children }) => {
   // initial values
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    jobTitle: "",
-    address: "",
-    phone: "",
-    email: "",
+    personalInfo: {
+      firstName: "",
+      lastName: "",
+      jobTitle: "",
+      address: "",
+      phone: "",
+      email: "",
+    },
     summery: "",
+    professionalInfo: {
+      designation: "",
+      companyName: "",
+      city: "",
+      state: "",
+      startDate: "",
+      endDate: "",
+      workSummery: "",
+    },
+    projects: {
+      title: "",
+      feature: "",
+    },
+    skills: "",
+    education: "",
   });
-
-  const updateFormData = (data) => {
-    setFormData(data);
-  };
 
   return (
     // wrap value inside provider
-    <FormContext.Provider value={{ formData, updateFormData }}>
+    <FormContext.Provider value={{ formData, setFormData }}>
       {children}
     </FormContext.Provider>
   );

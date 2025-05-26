@@ -1,47 +1,57 @@
-import React, { useContext, useEffect, useState } from "react";
 import FormContext from "@/context/FormContext";
 import axios from "axios";
+import { Phone } from "lucide-react";
+import { useContext } from "react";
 
 const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
-  const { formData, updateFormData } = useContext(FormContext);
+  const { formData, setFormData } = useContext(FormContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    updateFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData((prev) => ({
+      ...prev,
+      personalInfo: { ...prev.personalInfo, [name]: value },
+    }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("Sending Data:", formData.personalInfo);
+
+    // api call
     try {
       const res = await axios.put(`http://localhost:8080/personDetail/${id}`, {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        jobTitle: formData.jobTitle,
-        address: formData.address,
-        phone: formData.phone,
-        email: formData.email,
+        firstName: formData.personalInfo.firstName,
+        lastName: formData.personalInfo.lastName,
+        jobTitle: formData.personalInfo.jobTitle,
+        address: formData.personalInfo.address,
+        phone: formData.personalInfo.phone,
+        email: formData.personalInfo.email,
       });
 
       if (res.status === 200) {
-        alert("personal detail added successfully");
-        updateFormData({
-          firstName: "",
-          lastName: "",
-          jobTitle: "",
-          address: "",
-          phone: "",
-          email: "",
-        });
+        alert("personal detail added sucessfully");
+        setFormData((prev) => ({
+          ...prev,
+          personalInfo: {
+            firstName: "",
+            lastName: "",
+            jobTitle: "",
+            address: "",
+            phone: "",
+            email: "",
+          },
+        }));
 
         setActiveFormIndex(activeFormIndex + 1);
       }
     } catch (error) {
-      alert(error.response.data.message);
+      console.error("Error in submitting personal details:", error);
+      alert("Submission failed. Check the console for error details.");
     }
+
+    console.log(formData);
   };
   return (
     <div className="max-w-3xl mx-auto my-6">
@@ -66,8 +76,8 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               name="firstName"
               type="text"
               required
-              value={formData.firstName}
               onChange={handleChange}
+              value={formData?.personalInfo?.firstName}
               placeholder="Enter first name"
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
@@ -82,8 +92,8 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               name="lastName"
               type="text"
               required
-              value={formData.lastName}
               onChange={handleChange}
+              value={formData?.personalInfo?.lastName}
               placeholder="Enter last name"
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
@@ -98,8 +108,8 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               name="jobTitle"
               type="text"
               required
-              value={formData.jobTitle}
               onChange={handleChange}
+              value={formData?.personalInfo?.jobTitle}
               placeholder="Enter job title"
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
@@ -114,8 +124,8 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               name="address"
               type="text"
               required
-              value={formData.address}
               onChange={handleChange}
+              value={formData?.personalInfo?.address}
               placeholder="Enter address"
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
@@ -131,8 +141,8 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               type="number"
               maxLength={10}
               required
-              value={formData.phone}
               onChange={handleChange}
+              value={formData?.personalInfo?.phone}
               placeholder="Enter phone number"
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
@@ -147,8 +157,8 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               name="email"
               type="email"
               required
-              value={formData.email}
               onChange={handleChange}
+              value={formData?.personalInfo?.email}
               placeholder="Enter email"
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             />

@@ -36,8 +36,11 @@ const Skill = ({ id, activeFormIndex, setActiveFormIndex }) => {
             className="border-2 p-3 rounded-md  "
             onChange={(e) => setSkillInput(e.target.value)}
           />
-          <div className=" text-center  bg-purple-500 text-white mt-5 border p-2 rounded-md">
-            <button className="" onClick={handleAddSkill} type="button">
+          <div
+            onClick={handleAddSkill}
+            className=" text-center cursor-pointer bg-purple-500 text-white mt-5 border p-2 rounded-md"
+          >
+            <button className="" type="button">
               Add Your Skill
             </button>
           </div>
