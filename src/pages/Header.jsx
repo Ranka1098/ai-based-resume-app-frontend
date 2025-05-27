@@ -14,7 +14,7 @@ const Header = () => {
       <div className="flex justify-between">
         <Link to={"/login"}>
           <button className="bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold hover:bg-purple-800 transition duration-300">
-            Get Started
+            User
           </button>
         </Link>
       </div>

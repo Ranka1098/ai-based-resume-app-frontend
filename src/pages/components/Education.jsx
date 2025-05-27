@@ -1,22 +1,22 @@
+import FormContext from "@/context/FormContext";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 const Education = ({ id }) => {
-  const [education, setEducation] = useState("");
-
+  const { formData, setFormData } = useContext(FormContext);
   const handleEducationChange = (e) => {
     setEducation(e.target.value);
   };
 
   const handleSubmit = async () => {
-    if (!education.trim()) {
-      alert("Please enter your education details");
+    if (!formData.education || formData.education.trim() === "") {
+      alert("Enter skill");
       return;
     }
 
     try {
       const res = await axios.post(`http://localhost:8080/education/${id}`, {
-        education: education,
+        education: formData.education,
       });
 
       if (res.status === 200) {
@@ -38,8 +38,10 @@ const Education = ({ id }) => {
           <textarea
             className="border p-5 w-full my-2 rounded-md focus:outline-purple-600"
             placeholder="Education:BSC Com.Sci from AM Colleage Pune university"
-            value={education}
-            onChange={handleEducationChange}
+            value={formData.education}
+            onChange={(e) =>
+              setFormData({ ...formData, education: e.target.value })
+            }
           ></textarea>
           <div
             onClick={handleSubmit}

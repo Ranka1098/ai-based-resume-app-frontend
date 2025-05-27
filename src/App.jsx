@@ -8,7 +8,6 @@ import ForgetPassword from "./pages/ForgetPassword";
 import ProtectRoutes from "./pages/ProtectRoutes";
 import PublicRoutes from "./pages/PublicRoutes";
 import Layout from "./pages/Layout";
-import Dashbord from "./pages/Dashbord";
 import ResumeDetail from "./pages/ResumeDetail";
 
 const App = () => {
@@ -25,10 +24,7 @@ const App = () => {
             </ProtectRoutes>
           ),
         },
-        {
-          path: "/dashboard",
-          element: <Dashbord />,
-        },
+
         {
           path: "/resume/:id",
           element: (

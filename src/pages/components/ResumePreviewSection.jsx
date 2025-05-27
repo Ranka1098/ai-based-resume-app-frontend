@@ -19,9 +19,15 @@ const ResumePreviewSection = ({ id }) => {
   console.log(resumeData);
   useEffect(() => {
     singleResume();
-  }, [id]);
+  }, [id, formData]);
 
   const personalInfo = resumeData?.personalInfo || formData?.personalInfo || {};
+  const summery = resumeData?.summery || formData?.summery || "";
+  const professionalInfo =
+    resumeData?.professionalInfo || formData?.professionalInfo || [];
+  const projects = resumeData?.projects || formData?.projects || [];
+  const skill = resumeData?.skill || formData?.skill || [];
+  const education = resumeData?.education || formData?.education || "";
 
   return (
     <div className="">
@@ -67,18 +73,18 @@ const ResumePreviewSection = ({ id }) => {
 
           {/* Summary */}
           <div className="font-medium my-3  w-full whitespace-pre-wrap break-words">
-            {resumeData?.summery || "No summary available"}
+            {summery || "No summary available"}
           </div>
 
           {/* Experience Section */}
-          {/* <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
             Experince
-          </h1> */}
+          </h1>
 
           {/* Example Experience */}
-          {/* <div>
-            {Array.isArray(source?.professionalInfo) &&
-              source.professionalInfo.map((exp, index) => (
+          <div>
+            {Array.isArray(professionalInfo) &&
+              professionalInfo.map((exp, index) => (
                 <div key={exp._id || index} className="mb-4">
                   <div className="flex justify-between mt-1">
                     <p className="text-red-400 font-semibold flex gap-2 items-center">
@@ -99,33 +105,33 @@ const ResumePreviewSection = ({ id }) => {
                   <p className="mt-2">{exp.workSummery}</p>
                 </div>
               ))}
-          </div> */}
+          </div>
 
           {/* Repeat experiences... */}
 
           {/* Project Section */}
-          {/* <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
             PROJECT
           </h1>
-          {Array.isArray(source?.projects) &&
-            source.projects.map((proj, index) => (
+          {Array.isArray(projects) &&
+            projects.map((proj, index) => (
               <div key={index} className="mb-4">
                 <p>{proj.title}</p>
                 <p>{proj.features}</p>
               </div>
-            ))} */}
+            ))}
 
           {/* Skills */}
-          {/* <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
             SKILL
           </h1>
-          <ul className="flex gap-5 flex-wrap">{source.skill}</ul> */}
+          <ul className="flex gap-5 flex-wrap">{skill}</ul>
 
           {/* Education */}
-          {/* <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
             EDUCATION
           </h1>
-          <p>{source.education}</p> */}
+          <p>{education}</p>
         </div>
       </div>
     </div>

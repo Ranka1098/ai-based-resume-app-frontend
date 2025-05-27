@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 const professionalInfo = {
   designation: "",
   companyName: "",
@@ -94,7 +94,7 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
         </div>
         <p className="text-gray-600 mb-5">Add your previous job experience</p>
 
-        {expList?.map((item, index) => (
+        {expList.map((item, index) => (
           <div className="" key={index}>
             <p>
               {"Experince "} {index + 1}
