@@ -90,7 +90,15 @@ const Home = () => {
                     >
                       View
                     </DropdownMenuItem>
-                    <DropdownMenuItem>Download</DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() =>
+                        navigate(`/fullresume/${val._id}`, {
+                          state: { resumeId: val._id },
+                        })
+                      }
+                    >
+                      Download
+                    </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() => handleDelete(val._id)}
                       className="text-red-600 hover:bg-red-50"

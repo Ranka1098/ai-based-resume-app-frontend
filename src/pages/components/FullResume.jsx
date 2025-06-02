@@ -4,6 +4,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FcShare } from "react-icons/fc";
+import {
+  FacebookShareButton,
+  WhatsappShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  FacebookIcon,
+  WhatsappIcon,
+  TwitterIcon,
+  LinkedinIcon,
+} from "react-share";
 
 const FullResume = () => {
   const [resumeData, setResumeData] = useState(null);
@@ -12,6 +22,7 @@ const FullResume = () => {
   const id = location.state?.resumeId;
   const [showShareOptions, setShowShareOptions] = useState(false);
   const shareUrl = window.location.href;
+  const title = "this is my resume see it.";
 
   const navigate = useNavigate();
 
@@ -61,6 +72,7 @@ const FullResume = () => {
           >
             ⬇️ Download
           </button>
+
           <button
             onClick={handleShare}
             className="bg-white border flex items-center gap-2 border-gray-300 px-4  rounded-md hover:bg-gray-200 transition-all font-medium shadow-sm"
@@ -68,6 +80,54 @@ const FullResume = () => {
             <FcShare size={20} />
             Share
           </button>
+        </div>
+
+        <div>
+          {showShareOptions && (
+            <div className="absolute top-35 left-[40%] p-2 rounded-md bg-gray-400">
+              <div className="flex gap-4">
+                <FacebookShareButton
+                  url={shareUrl}
+                  quote={title}
+                  onClick={() => {
+                    setShowShareOptions(false);
+                  }}
+                >
+                  <FacebookIcon size={40} round />
+                </FacebookShareButton>
+
+                <WhatsappShareButton
+                  url={shareUrl}
+                  title={title}
+                  onClick={() => {
+                    setShowShareOptions(false);
+                  }}
+                >
+                  <WhatsappIcon size={40} round />
+                </WhatsappShareButton>
+
+                <TwitterShareButton
+                  url={shareUrl}
+                  title={title}
+                  onClick={() => {
+                    setShowShareOptions(false);
+                  }}
+                >
+                  <TwitterIcon size={40} round />
+                </TwitterShareButton>
+
+                <LinkedinShareButton
+                  url={shareUrl}
+                  title={title}
+                  onClick={() => {
+                    setShowShareOptions(false);
+                  }}
+                >
+                  <LinkedinIcon size={40} round />
+                </LinkedinShareButton>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="w-full max-w-[750px] print:shadow-none print:border-none print:p-0 print:m-0 print:rounded-none my-5 bg-white py-2 px-4 rounded-xl shadow-xl border border-gray-300 ">
