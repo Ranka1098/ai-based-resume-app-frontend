@@ -8,6 +8,7 @@ import ProfessionalInfo from "./ProfessionalInfo";
 import ProjectInfo from "./ProjectInfo";
 import Skill from "./Skill";
 import Education from "./Education";
+import FullResume from "./FullResume";
 
 const FormSection = ({ id }) => {
   const [activeFormIndex, setActiveFormIndex] = useState(1);

@@ -27,6 +27,10 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
 
       if (res.status === 200) {
         alert("summary added successfully");
+        setFormData((prev) => ({
+          ...prev,
+          summery: "", // textarea empty
+        }));
         setActiveFormIndex(activeFormIndex + 1);
       }
     } catch (err) {
@@ -85,6 +89,7 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
           <textarea
             name="summery"
             required
+            rows={15}
             value={formData.summery}
             onChange={handleChange}
             className="border-[2px]  p-3 w-full max-h-[350px] text-xl  mt-3  rounded-md border-gray-500    overflow-y-auto"

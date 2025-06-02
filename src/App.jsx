@@ -9,6 +9,7 @@ import ProtectRoutes from "./pages/ProtectRoutes";
 import PublicRoutes from "./pages/PublicRoutes";
 import Layout from "./pages/Layout";
 import ResumeDetail from "./pages/ResumeDetail";
+import FullResume from "./pages/components/FullResume";
 
 const App = () => {
   const appRouter = createBrowserRouter([
@@ -34,6 +35,15 @@ const App = () => {
           ),
         },
       ],
+    },
+    {
+      path: "/fullresume/:id",
+      element: (
+        <ProtectRoutes>
+          {" "}
+          <FullResume />
+        </ProtectRoutes>
+      ),
     },
 
     {

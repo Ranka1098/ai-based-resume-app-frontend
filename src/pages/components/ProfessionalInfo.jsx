@@ -1,74 +1,109 @@
+import FormContext from "@/context/FormContext";
 import axios from "axios";
 import React, { useContext, useState } from "react";
-const professionalInfo = {
-  designation: "",
-  companyName: "",
-  city: "",
-  state: "",
-  startDate: "",
-  endDate: "",
-  workSummery: "",
-};
 
 const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
-  const [expList, setExpList] = useState([professionalInfo]);
+  const { formData, setFormData } = useContext(FormContext);
 
   const hadndleAddExp = () => {
-    setExpList([...expList, { ...professionalInfo }]);
+    setFormData({
+      ...formData,
+      professionalInfo: [
+        ...formData.professionalInfo,
+        {
+          designation: "",
+          companyName: "",
+          city: "",
+          state: "",
+          startDate: "",
+          endDate: "",
+          workSummery: "",
+        },
+      ],
+    });
   };
 
   const hadndleRmvExp = () => {
-    if (expList.length > 1) {
-      setExpList([...expList.slice(0, -1)]);
+    const updatedInfo = [...formData.professionalInfo];
+    if (updatedInfo.length > 1) {
+      updatedInfo.pop();
+
+      setFormData({
+        ...formData,
+        professionalInfo: updatedInfo,
+      });
     }
   };
 
   const handleChange = (e, index) => {
-    // name: "designation", value: "New Value"
     const { name, value } = e.target;
+    const updatedProfessionalInfo = [...formData.professionalInfo];
+    updatedProfessionalInfo[index][name] = value;
 
-    // Create a copy of the array to avoid mutating state directly
-    const updatedList = [...expList];
-
-    // Update only the specific field of the specific experience
-    updatedList[index][name] = value;
-
-    // Set the new array back into state
-    setExpList(updatedList);
+    // update formData in context
+    setFormData({
+      ...formData,
+      professionalInfo: updatedProfessionalInfo,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const isEmpty = expList.some(
-      (pro) =>
-        pro.designation.trim() === "" ||
-        pro.companyName.trim() === "" ||
-        pro.companyName.trim() === "" ||
-        pro.city.trim() === "" ||
-        pro.state.trim() === "" ||
-        pro.startDate.trim() === "" ||
-        pro.workSummery.trim() === ""
+    const isEmpty = formData.professionalInfo.some(
+      (proj) =>
+        proj.designation.trim() === "" ||
+        proj.companyName.trim() === "" ||
+        proj.city.trim() === "" ||
+        proj.state.trim() === "" ||
+        proj.startDate.trim() === "" ||
+        proj.workSummery.trim() === ""
     );
+
     if (isEmpty) {
-      alert("fill empty filed");
+      alert(
+        "Please fill in all project titles and features before submitting."
+      );
       return;
     }
+
+    // api call
+
     try {
       const res = await axios.post(
         `http://localhost:8080/professionalDetail/${id}`,
         {
-          professionalInfo: expList,
+          // designation: formData.professionalInfo.designation,
+          // companyName: formData.professionalInfo.companyName,
+          // city: formData.professionalInfo.city,
+          // state: formData.professionalInfo.state,
+          // startDate: formData.professionalInfo.startDate,
+          // endDate: formData.professionalInfo.endDate,
+          // workSummery: formData.professionalInfo.workSummery,
+          professionalInfo: formData.professionalInfo,
         }
       );
 
       if (res.status === 200) {
-        alert("professional info added");
-        setExpList([{ ...professionalInfo }]);
+        alert("professional infromation added successfully");
+        setFormData((prev) => ({
+          ...prev,
+          professionalInfo: [
+            {
+              designation: "",
+              companyName: "",
+              city: "",
+              state: "",
+              startDate: "",
+              endDate: "",
+              workSummery: "",
+            },
+          ],
+        }));
+
         setActiveFormIndex(activeFormIndex + 1);
       }
     } catch (error) {
-      console.error(error.response?.data?.message || error.message);
+      alert(error.response.data.message);
     }
   };
 
@@ -94,8 +129,8 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
         </div>
         <p className="text-gray-600 mb-5">Add your previous job experience</p>
 
-        {expList.map((item, index) => (
-          <div className="" key={index}>
+        {formData.professionalInfo.map((item, index) => (
+          <div key={index}>
             <p>
               {"Experince "} {index + 1}
             </p>

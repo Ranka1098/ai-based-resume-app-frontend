@@ -1,29 +1,36 @@
 import FormContext from "@/context/FormContext";
 import axios from "axios";
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Education = ({ id }) => {
-  const { formData, setFormData } = useContext(FormContext);
-  const handleEducationChange = (e) => {
-    setEducation(e.target.value);
+  const { setFormData } = useContext(FormContext);
+  const [inputEducation, setInputEducation] = useState("");
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setInputEducation(value);
   };
 
-  const handleSubmit = async () => {
-    if (!formData.education || formData.education.trim() === "") {
-      alert("Enter skill");
-      return;
-    }
-
+  const handleAddEducation = async () => {
     try {
       const res = await axios.post(`http://localhost:8080/education/${id}`, {
-        education: formData.education,
+        educationInput: inputEducation,
       });
 
       if (res.status === 200) {
-        alert("edication Added successfully");
-        setEducation("");
+        alert("Education added successfully");
+        setInputEducation("");
+        setFormData((prev) => ({
+          ...prev,
+          education: res.data.education,
+        }));
+        navigate(`/fullresume/${id}`, { state: { resumeId: id } });
       }
-    } catch (error) {}
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <div className="max-w-3xl mx-auto ">
@@ -38,16 +45,14 @@ const Education = ({ id }) => {
           <textarea
             className="border p-5 w-full my-2 rounded-md focus:outline-purple-600"
             placeholder="Education:BSC Com.Sci from AM Colleage Pune university"
-            value={formData.education}
-            onChange={(e) =>
-              setFormData({ ...formData, education: e.target.value })
-            }
+            value={inputEducation}
+            onChange={handleChange}
           ></textarea>
           <div
-            onClick={handleSubmit}
+            onClick={handleAddEducation}
             className=" text-center cursor-pointer bg-purple-500 text-white mt-5 border p-2 rounded-md"
           >
-            <button type="button">Add Your Skill</button>
+            <button type="button">Add Your Education</button>
           </div>
         </div>
       </div>

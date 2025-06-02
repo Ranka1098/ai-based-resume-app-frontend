@@ -17,8 +17,6 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Sending Data:", formData.personalInfo);
-
     // api call
     try {
       const res = await axios.put(`http://localhost:8080/personDetail/${id}`, {

@@ -3,22 +3,28 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 
 const Skill = ({ id, activeFormIndex, setActiveFormIndex }) => {
-  const { formData, setFormData } = useContext(FormContext);
+  const { setFormData } = useContext(FormContext);
+  const [inputSkill, setInputSkill] = useState("");
+  console.log(inputSkill);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setInputSkill(value);
+  };
 
   const handleAddSkill = async () => {
-    if (!formData.skill || formData.skill.trim() === "") {
-      alert("Enter skill");
-      return;
-    }
-    const res = await axios.post(`http://localhost:8080/skill/${id}`, {
-      skill: formData.skill,
-    });
+    try {
+      const res = await axios.post(`http://localhost:8080/skill/${id}`, {
+        skillInput: inputSkill,
+      });
 
-    if (res.status === 200) {
-      alert("skill added successfully");
-
-      setFormData({ ...formData, skill: "" });
-      setActiveFormIndex(activeFormIndex + 1);
+      if (res.status === 200) {
+        alert("Skill added successfully");
+        setInputSkill("");
+        setActiveFormIndex(activeFormIndex + 1);
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -33,11 +39,10 @@ const Skill = ({ id, activeFormIndex, setActiveFormIndex }) => {
             Enter Your Skill
           </label>
           <textarea
-            value={formData.skill}
+            value={inputSkill}
+            onChange={handleChange}
             className="border-2 p-3 rounded-md  "
-            onChange={(e) =>
-              setFormData({ ...formData, skill: e.target.value })
-            }
+            placeholder="Skill => HTML,CSS,JS.."
           />
           <div
             onClick={handleAddSkill}

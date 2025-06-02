@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 // create context
 const FormContext = createContext();
@@ -16,21 +16,25 @@ export const FormProvider = ({ children }) => {
       email: "",
     },
     summery: "",
-    professionalInfo: {
-      designation: "",
-      companyName: "",
-      city: "",
-      state: "",
-      startDate: "",
-      endDate: "",
-      workSummery: "",
-    },
-    projects: {
-      title: "",
-      feature: "",
-    },
-    skills: "",
-    education: "",
+    professionalInfo: [
+      {
+        designation: "",
+        companyName: "",
+        city: "",
+        state: "",
+        startDate: "",
+        endDate: "",
+        workSummery: "",
+      },
+    ],
+    projects: [
+      {
+        title: "",
+        feature: "",
+      },
+    ],
+    skill: [],
+    education: [],
   });
 
   return (

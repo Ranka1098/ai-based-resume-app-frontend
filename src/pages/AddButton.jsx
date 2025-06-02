@@ -35,7 +35,10 @@ const AddButton = ({ onResumeAdded }) => {
     <div>
       {/* Plus Button */}
       <div
-        onClick={() => setShowDialog(true)}
+        onClick={() => {
+          setTitle(""); // <-- Clear the input field
+          setShowDialog(true); // <-- Open dialog
+        }}
         className="w-36 h-36 bg-gray-200 flex justify-center items-center cursor-pointer mt-5 border-2 border-dotted border-gray-400 rounded-md"
       >
         <FaPlusSquare size={40} />
