@@ -1,10 +1,9 @@
 import FormContext from "@/context/FormContext";
 import axios from "axios";
-import { Phone } from "lucide-react";
 import { useContext } from "react";
 
 const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
-  const { formData, setFormData } = useContext(FormContext);
+  const { formData, setFormData, setRefreshResume } = useContext(FormContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +28,8 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
       });
 
       if (res.status === 200) {
+        setRefreshResume((prev) => !prev);
+
         alert("personal detail added sucessfully");
         setFormData((prev) => ({
           ...prev,

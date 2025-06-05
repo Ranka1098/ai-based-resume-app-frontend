@@ -3,7 +3,18 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 
 const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
-  const { formData, setFormData } = useContext(FormContext);
+  const { formData, setFormData, setRefreshResume } = useContext(FormContext);
+
+  const handleChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedProfessionalInfo = [...formData.professionalInfo];
+    updatedProfessionalInfo[index][name] = value;
+
+    setFormData({
+      ...formData,
+      professionalInfo: updatedProfessionalInfo,
+    });
+  };
 
   const hadndleAddExp = () => {
     setFormData({
@@ -35,18 +46,6 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
     }
   };
 
-  const handleChange = (e, index) => {
-    const { name, value } = e.target;
-    const updatedProfessionalInfo = [...formData.professionalInfo];
-    updatedProfessionalInfo[index][name] = value;
-
-    // update formData in context
-    setFormData({
-      ...formData,
-      professionalInfo: updatedProfessionalInfo,
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isEmpty = formData.professionalInfo.some(
@@ -72,18 +71,13 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
       const res = await axios.post(
         `http://localhost:8080/professionalDetail/${id}`,
         {
-          // designation: formData.professionalInfo.designation,
-          // companyName: formData.professionalInfo.companyName,
-          // city: formData.professionalInfo.city,
-          // state: formData.professionalInfo.state,
-          // startDate: formData.professionalInfo.startDate,
-          // endDate: formData.professionalInfo.endDate,
-          // workSummery: formData.professionalInfo.workSummery,
           professionalInfo: formData.professionalInfo,
         }
       );
 
       if (res.status === 200) {
+        setRefreshResume((prev) => !prev);
+
         alert("professional infromation added successfully");
         setFormData((prev) => ({
           ...prev,
@@ -108,6 +102,10 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
   };
 
   const handleSkip = () => {
+    setFormData({
+      ...formData,
+      isProfessionalInfoSkipped: true,
+    });
     setActiveFormIndex(activeFormIndex + 1);
   };
 

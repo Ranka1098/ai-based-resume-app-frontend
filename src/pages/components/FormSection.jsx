@@ -106,6 +106,8 @@ const FormSection = ({ id }) => {
           />
         )}
         {/* -------------------education detail----------------------- */}
+
+        {activeFormIndex === 7 && <FullResume id={id} />}
       </div>
     </>
   );

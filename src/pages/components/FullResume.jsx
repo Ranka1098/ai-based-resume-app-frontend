@@ -2,7 +2,7 @@ import FormContext from "@/context/FormContext";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { IoLocationOutline } from "react-icons/io5";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FcShare } from "react-icons/fc";
 import {
   FacebookShareButton,
@@ -17,17 +17,20 @@ import {
 
 const FullResume = () => {
   const [resumeData, setResumeData] = useState(null);
-  const { formData } = useContext(FormContext);
-  const location = useLocation();
-  const id = location.state?.resumeId;
+  const { formData, refreshResume } = useContext(FormContext);
+  const [atsResumeData, setAtsResumeData] = useState(null);
+
+  const { id } = useParams();
   const [showShareOptions, setShowShareOptions] = useState(false);
   const shareUrl = window.location.href;
-  const title = "this is my resume see it.";
+  const title = `this is my ${resumeData?.title} resume see it`;
 
   const navigate = useNavigate();
 
+  console.log(atsResumeData);
+
   const singleResume = async () => {
-    const res = await axios.post(
+    const res = await axios.get(
       `http://localhost:8080/singleResumeDetail/${id}`
     );
     setResumeData(res.data);
@@ -42,7 +45,33 @@ const FullResume = () => {
 
   useEffect(() => {
     singleResume();
-  }, [id]);
+  }, [id, refreshResume]);
+
+  useEffect(() => {
+    const ATS_Resume = async () => {
+      if (!resumeData) return;
+
+      try {
+        const response = await axios.post("http://localhost:8080/atsResume", {
+          resume: resumeData, // sending full resume data
+        });
+        console.log("ats resume", response?.data);
+        setAtsResumeData(response?.data?.atsResume);
+      } catch (error) {
+        console.error("Error generating ATS resume:", error.message);
+      }
+    };
+
+    ATS_Resume();
+  }, [resumeData]);
+
+  const projectData = resumeData?.projects?.length
+    ? resumeData.projects
+    : formData?.projects || [];
+
+  const professionalData = resumeData?.professionalInfo?.length
+    ? resumeData.professionalInfo
+    : formData?.professionalInfo || [];
 
   return (
     <div className="flex items-center justify-center  p-5 relative">
@@ -177,56 +206,84 @@ const FullResume = () => {
           </section>
 
           {/* Work Experience */}
-          <section className="mb-8">
-            <h3 className="text-xl font-semibold text-red-500 mb-2 border-b-2 pb-1 border-red-400">
-              Work Experience
-            </h3>
-            {resumeData?.professionalInfo?.length > 0 ? (
-              resumeData.professionalInfo.map((exp, index) => (
-                <div key={exp._id || index} className="mb-4">
-                  <div className="flex justify-between">
-                    <div>
-                      <h4 className="font-bold text-gray-800">
-                        {exp.designation}
-                      </h4>
-                      <p className="text-gray-600">{exp.companyName}</p>
-                      <p className="text-sm text-gray-500">
-                        {exp.city}, {exp.state}
-                      </p>
-                    </div>
-                    <div className="text-right text-sm text-gray-500">
-                      {new Date(exp.startDate).toLocaleDateString("en-GB")} -{" "}
-                      {exp.endDate
-                        ? new Date(exp.endDate).toLocaleDateString("en-GB")
-                        : "Current"}
-                    </div>
-                  </div>
-                  <p className="text-gray-700 mt-2">{exp.workSummery}</p>
+          {!resumeData?.isProfessionalInfoSkipped &&
+            Array.isArray(resumeData?.professionalInfo) &&
+            resumeData?.professionalInfo.length > 0 && (
+              <>
+                <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+                  Work Experince
+                </h1>
+
+                <div>
+                  {Array.isArray(resumeData?.professionalInfo) &&
+                    resumeData?.professionalInfo.map((exp, index) => (
+                      <div key={exp._id || index} className="mb-4">
+                        <div className="flex justify-between mt-1">
+                          <div className="flex flex-col">
+                            <p className="text-red-400 font-semibold flex gap-2 items-center">
+                              {exp.designation}
+                              <span className="text-sm text-center text-black">
+                                {exp.companyName}
+                              </span>
+                            </p>
+                            <p className="text-red-400 justify-center  text-sm flex gap-2 items-center">
+                              {exp.city}
+                              <span className="text-sm text-center text-black">
+                                {exp.state}
+                              </span>
+                            </p>
+                          </div>
+                          <div className="flex gap-5">
+                            <p className="font-semibold">
+                              {new Date(exp.startDate).toLocaleDateString(
+                                "en-GB"
+                              )}{" "}
+                              -{" "}
+                              {exp.endDate
+                                ? new Date(exp.endDate).toLocaleDateString(
+                                    "en-GB"
+                                  )
+                                : "Present"}
+                            </p>
+                          </div>
+                        </div>
+                        <div
+                          style={{ whiteSpace: "pre-line" }}
+                          className=" break-words "
+                        >
+                          <p className="mt-2">{exp.workSummery}</p>
+                        </div>
+                      </div>
+                    ))}
                 </div>
-              ))
-            ) : (
-              <p className="text-gray-500">No experience available.</p>
+              </>
             )}
-          </section>
 
           {/* Projects */}
           <section className="mb-8">
-            <h3 className="text-xl font-semibold text-red-500 mb-2 border-b-2 pb-1 border-red-400">
-              Projects
-            </h3>
-            {resumeData?.projects?.length > 0 ? (
-              resumeData.projects.map((proj, index) => (
-                <div key={index} className="mb-4">
-                  <p className="text-lg font-bold text-gray-800">
-                    {proj.title}
+            <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+              PROJECT
+            </h1>
+            <div className="flex gap-5 flex-col">
+              {projectData.map((proj, index) => (
+                <div
+                  key={index}
+                  style={{ whiteSpace: "pre-line" }}
+                  className="font-serif  break-words "
+                >
+                  <p className="font-serif font-semibold">
+                    {proj.title.toUpperCase()}
                   </p>
-                  <p className="font-semibold text-gray-700">Features:</p>
-                  <p className="text-gray-700">{proj.feature}</p>
+                  <p className="font-semibold text-sm">Features</p>
+                  <div
+                    style={{ whiteSpace: "pre-line" }}
+                    className=" break-words "
+                  >
+                    <p className="text-md">{proj.feature}</p>
+                  </div>
                 </div>
-              ))
-            ) : (
-              <p className="text-gray-500">No projects listed.</p>
-            )}
+              ))}
+            </div>
           </section>
 
           {/* Skills */}
@@ -252,6 +309,84 @@ const FullResume = () => {
                 : "No education added."}
             </ul>
           </section>
+          {/* ATS Resume Analysis */}
+          {/* ATS Resume Analysis */}
+          {/* {atsResumeData && (
+            <section className="mb-8 mt-4 border-t pt-4 border-gray-300">
+              <h3 className="text-xl font-bold text-red-500 mb-2 border-b-2 pb-1 border-red-400">
+                🧠 AI Resume Feedback
+              </h3>
+              <div className="text-gray-800 space-y-4 text-sm leading-relaxed font-medium">
+                <p>
+                  <strong>👤 Name:</strong> ASHOKKUMAR VAISHNAV
+                </p>
+                <p>
+                  <strong>📧 Email:</strong> ashokranka30@gmail.com
+                </p>
+                <p>
+                  <strong>📍 Location:</strong> Manjri, Pune
+                </p>
+
+                <div className="bg-gray-100 p-3 rounded-lg border border-gray-300 space-y-2">
+                  <p>
+                    ✅ <strong>Summary:</strong> Highly motivated MERN Stack
+                    Developer with foundational experience in building web
+                    applications and APIs using MongoDB, Express.js, React.js,
+                    and Node.js.
+                  </p>
+                  <p>
+                    🎯 <strong>Objective:</strong> Seeking an entry-level
+                    position to leverage skills and contribute to a dynamic
+                    team. Eager to learn and grow professionally.
+                  </p>
+                </div>
+
+                <div className="bg-blue-50 p-3 rounded-lg border border-blue-300 space-y-2">
+                  <p className="font-semibold text-blue-600">
+                    💡 AI Suggestions for Improvement:
+                  </p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>
+                      ✅ <strong>Quantify accomplishments:</strong> Add metrics
+                      like “Improved page speed by 20%”.
+                    </li>
+                    <li>
+                      ✅ <strong>Clarify responsibilities:</strong> Give details
+                      like “Developed REST APIs for user auth”.
+                    </li>
+                    <li>
+                      ✅ <strong>Use action verbs:</strong> Begin with words
+                      like “Built”, “Managed”, “Integrated”.
+                    </li>
+                    <li>
+                      ✅ <strong>Fix grammar/spelling:</strong> Watch for typos
+                      like “Engginer”, “woked”.
+                    </li>
+                    <li>
+                      ✅ <strong>Add more content:</strong> Add more projects,
+                      internships, or open source work.
+                    </li>
+                    <li>
+                      ✅ <strong>Customize for each job:</strong> Use keywords
+                      from the specific job you're applying to.
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-green-50 p-3 rounded-lg border border-green-300 space-y-2">
+                  <p className="text-green-700 font-semibold">
+                    📈 Final Verdict:
+                  </p>
+                  <p>
+                    This resume has been significantly improved for ATS
+                    readability and keyword optimization. With a few refinements
+                    and personalization for job roles, it's ready to land
+                    interviews.
+                  </p>
+                </div>
+              </div>
+            </section>
+          )} */}
         </div>
       </div>
     </div>

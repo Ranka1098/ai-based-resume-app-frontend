@@ -1,10 +1,11 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 // create context
 const FormContext = createContext();
 
 // create provider
 export const FormProvider = ({ children }) => {
+  const [refreshResume, setRefreshResume] = useState(false);
   // initial values
   const [formData, setFormData] = useState({
     personalInfo: {
@@ -35,11 +36,14 @@ export const FormProvider = ({ children }) => {
     ],
     skill: [],
     education: [],
+    isProfessionalInfoSkipped: false,
   });
 
   return (
     // wrap value inside provider
-    <FormContext.Provider value={{ formData, setFormData }}>
+    <FormContext.Provider
+      value={{ formData, setFormData, refreshResume, setRefreshResume }}
+    >
       {children}
     </FormContext.Provider>
   );

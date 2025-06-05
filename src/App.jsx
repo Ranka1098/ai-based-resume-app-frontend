@@ -40,7 +40,6 @@ const App = () => {
       path: "/fullresume/:id",
       element: (
         <ProtectRoutes>
-          {" "}
           <FullResume />
         </ProtectRoutes>
       ),

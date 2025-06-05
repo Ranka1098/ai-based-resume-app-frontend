@@ -46,7 +46,7 @@ const AddButton = ({ onResumeAdded }) => {
 
       {/* Dialog Box */}
       {showDialog && (
-        <div className="fixed inset-0 bg-black/40 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
           <div className="bg-white p-5 rounded-md w-80 shadow-lg">
             <h2 className="text-lg font-semibold mb-1">Create new Resume</h2>
             <p className="text-sm mb-3">Add your new resume Title</p>

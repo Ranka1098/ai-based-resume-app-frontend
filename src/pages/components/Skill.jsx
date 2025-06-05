@@ -3,22 +3,31 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 
 const Skill = ({ id, activeFormIndex, setActiveFormIndex }) => {
-  const { setFormData } = useContext(FormContext);
+  const { formData, setFormData, setRefreshResume } = useContext(FormContext);
   const [inputSkill, setInputSkill] = useState("");
-  console.log(inputSkill);
 
   const handleChange = (e) => {
     const value = e.target.value;
-    setInputSkill(value);
+    setInputSkill(value); // show user-typed value in textarea
+    const skillsArray = value.split(",").map((skill) => skill.trim()); // convert comma-separated string to array
+    setFormData({
+      ...formData,
+      skill: skillsArray,
+    });
   };
 
   const handleAddSkill = async () => {
+    if (inputSkill.trim() === "") {
+      alert("Please add your education");
+      return;
+    }
     try {
       const res = await axios.post(`http://localhost:8080/skill/${id}`, {
-        skillInput: inputSkill,
+        skillInput: formData.skill,
       });
 
       if (res.status === 200) {
+        setRefreshResume((prev) => !prev);
         alert("Skill added successfully");
         setInputSkill("");
         setActiveFormIndex(activeFormIndex + 1);

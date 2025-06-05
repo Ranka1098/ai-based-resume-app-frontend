@@ -6,19 +6,34 @@ import { IoLocationOutline } from "react-icons/io5";
 
 const ResumePreviewSection = ({ id }) => {
   const [resumeData, setResumeData] = useState(null);
-  const { formData, setFormData } = useContext(FormContext);
+  const { formData, refreshResume } = useContext(FormContext);
 
   const singleResume = async () => {
-    const res = await axios.post(
+    const res = await axios.get(
       `http://localhost:8080/singleResumeDetail/${id}`
     );
     setResumeData(res.data);
   };
-  console.log(resumeData);
 
   useEffect(() => {
     singleResume();
-  }, [id]);
+  }, [id, refreshResume]);
+
+  const professionalData = resumeData?.professionalInfo?.length
+    ? resumeData.professionalInfo
+    : formData?.professionalInfo || [];
+
+  const projectData = resumeData?.projects?.length
+    ? resumeData.projects
+    : formData?.projects || [];
+
+  const skill = resumeData?.skill?.length
+    ? resumeData.skill
+    : formData?.skill || [];
+
+  const education = resumeData?.education?.length
+    ? resumeData.education
+    : formData?.education || [];
 
   return (
     <div className="">
@@ -28,17 +43,17 @@ const ResumePreviewSection = ({ id }) => {
         <div className="border-t-[1rem] border-t-red-400">
           {/* Name */}
           <h1 className="pt-5 text-center text-2xl font-bold">
-            {resumeData?.personalInfo?.firstName ||
-              formData?.personalInfo?.firstName ||
+            {resumeData?.personalInfo?.firstName?.toUpperCase() ||
+              formData?.personalInfo?.firstName?.toUpperCase() ||
               "FirstName"}{" "}
-            {resumeData?.personalInfo?.lastName ||
-              formData?.personalInfo?.lastName ||
+            {resumeData?.personalInfo?.lastName?.toUpperCase() ||
+              formData?.personalInfo?.lastName?.toUpperCase() ||
               "LastName"}
           </h1>
           {/* Title */}
           <h2 className="text-center text-xl font-bold">
-            {resumeData?.personalInfo?.jobTitle ||
-              formData?.personalInfo?.jobTitle ||
+            {resumeData?.personalInfo?.jobTitle?.toUpperCase() ||
+              formData?.personalInfo?.jobTitle?.toUpperCase() ||
               "jobTitle"}
           </h2>
 
@@ -46,8 +61,8 @@ const ResumePreviewSection = ({ id }) => {
           <h2 className="text-center text-lg font-bold my-2">
             <div className="flex justify-center items-center gap-1">
               <IoLocationOutline size={20} />
-              {resumeData?.personalInfo?.address ||
-                formData?.personalInfo?.address ||
+              {resumeData?.personalInfo?.address?.toUpperCase() ||
+                formData?.personalInfo?.address?.toUpperCase() ||
                 "address"}
             </div>
           </h2>
@@ -75,9 +90,7 @@ const ResumePreviewSection = ({ id }) => {
 
           {/* Summary */}
           <div className="font-medium my-3  w-full whitespace-pre-wrap break-words">
-            {resumeData?.summery ||
-              formData?.personalInfo?.summery ||
-              "No summary available"}
+            {resumeData?.summery || formData?.summery || "No summary available"}
           </div>
 
           {/* Experience Section */}
@@ -87,36 +100,36 @@ const ResumePreviewSection = ({ id }) => {
 
           {/* Example Experience */}
           <div>
-            {Array.isArray(resumeData?.professionalInfo) &&
-              resumeData?.professionalInfo.map((exp, index) => (
-                <div key={exp._id || index} className="mb-4">
-                  <div className="flex justify-between mt-1">
-                    <div className="flex flex-col">
-                      <p className="text-red-400 font-semibold flex gap-2 items-center">
-                        {exp.designation}
-                        <span className="text-sm text-center text-black">
-                          {exp.companyName}
-                        </span>
-                      </p>
-                      <p className="text-red-400 justify-center font-serif text-sm flex gap-2 items-center">
-                        {exp.city}
-                        <span className="text-sm text-center text-black">
-                          {exp.state}
-                        </span>
-                      </p>
-                    </div>
-                    <div className="flex gap-5">
-                      <p className="font-semibold">
-                        {new Date(exp.startDate).toLocaleDateString("en-GB")} -{" "}
-                        {exp.endDate
-                          ? new Date(exp.endDate).toLocaleDateString("en-GB")
-                          : "Current"}
-                      </p>
-                    </div>
+            {professionalData.map((exp, index) => (
+              <div key={exp._id || index} className="mb-4">
+                <div className="flex justify-between mt-1">
+                  <div className="flex flex-col">
+                    <p className="text-red-400 font-semibold flex gap-2 items-center">
+                      {exp.designation}
+                      <p>{"-"}</p>
+                      <span className="text-sm text-center text-black">
+                        {exp.companyName}
+                      </span>
+                    </p>
+                    <p className="text-red-400 justify-center font-serif text-sm flex gap-2 items-center">
+                      {exp.city}
+                      <span className="text-sm text-center text-black">
+                        {exp.state}
+                      </span>
+                    </p>
                   </div>
-                  <p className="mt-2">{exp.workSummery}</p>
+                  <div className="flex gap-5">
+                    <p className="font-semibold">
+                      {new Date(exp.startDate).toLocaleDateString("en-GB")} -{" "}
+                      {exp.endDate
+                        ? new Date(exp.endDate).toLocaleDateString("en-GB")
+                        : "Current"}
+                    </p>
+                  </div>
                 </div>
-              ))}
+                <p className="mt-2">{exp.workSummery}</p>
+              </div>
+            ))}
           </div>
 
           {/* Repeat experiences... */}
@@ -125,14 +138,26 @@ const ResumePreviewSection = ({ id }) => {
           <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
             PROJECT
           </h1>
-          {Array.isArray(resumeData?.projects) &&
-            resumeData?.projects.map((proj, index) => (
-              <div key={index} className="mb-4">
-                <p className="font-serif font-bold">{proj.title}</p>
-                <p className="font-semibold">Features</p>
-                <p>{proj.feature}</p>
+          <div className="flex gap-5 flex-col">
+            {projectData.map((proj, index) => (
+              <div
+                key={index}
+                style={{ whiteSpace: "pre-line" }}
+                className="font-serif  break-words "
+              >
+                <p className="font-serif font-semibold">
+                  {proj.title.toUpperCase()}
+                </p>
+                <p className="font-semibold text-sm">Features</p>
+                <div
+                  style={{ whiteSpace: "pre-line" }}
+                  className="font-mono break-words "
+                >
+                  <p className="text-md">{proj.feature}</p>
+                </div>
               </div>
             ))}
+          </div>
 
           {/* Skills */}
           <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
@@ -142,8 +167,10 @@ const ResumePreviewSection = ({ id }) => {
             style={{ whiteSpace: "pre-line" }}
             className="font-mono break-words "
           >
-            {resumeData?.skill.length > 0
-              ? resumeData.skill.map((sk, index) => <li key={index}>{sk}</li>)
+            {skill?.length > 0
+              ? skill?.map((sk, index) => (
+                  <li key={index}>{sk?.toUpperCase()}</li>
+                ))
               : "No skills yet"}
           </ul>
           {/* Education */}
@@ -154,9 +181,9 @@ const ResumePreviewSection = ({ id }) => {
             style={{ whiteSpace: "pre-line" }}
             className="font-semibold  break-words "
           >
-            {resumeData?.education?.length > 0
-              ? resumeData?.education?.map((sk, index) => (
-                  <li key={index}>{sk}</li>
+            {education?.length > 0
+              ? education?.map((ed, index) => (
+                  <li key={index}>{ed?.toUpperCase()}</li>
                 ))
               : "No education yet"}
           </ul>

@@ -4,7 +4,7 @@ import React, { useContext, useState } from "react";
 import { LuBrain } from "react-icons/lu";
 
 const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
-  const { formData, setFormData } = useContext(FormContext);
+  const { formData, setFormData, setRefreshResume } = useContext(FormContext);
 
   const [aiDailougeBox, setAiDilougeBox] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -61,6 +61,7 @@ const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
       });
 
       if (res.status === 200) {
+        setRefreshResume((prev) => !prev);
         alert("projects added successfully");
         setFormData((prev) => ({
           ...prev,
@@ -92,9 +93,7 @@ const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
       setLoading(false);
     }
 
-    console.log(res);
   };
-  console.log(aiFeatureOutput);
   return (
     <div className="max-w-3xl mx-auto ">
       <div className="border p-6 border-t-[6px] border-t-purple-600 rounded-2xl bg-white shadow-md">
@@ -226,12 +225,12 @@ const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
                   <h3 className="text-lg font-semibold mb-2">
                     Copy Answer And Add In Project Feature Section{" "}
                   </h3>
-                  <div className="whitespace-pre-wrap text-gray-800 min-h-[150px]">
+                  <div className="whitespace-pre-wrap text-gray-800 min-h-[150px] ">
                     <textarea
-                      className="w-full h-full"
+                      className="w-full h-full p-2"
                       name=""
                       id=""
-                      rows={8}
+                      rows={20}
                       value={
                         aiFeatureOutput || "AI response will appear here..."
                       }

@@ -4,29 +4,43 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Education = ({ id }) => {
-  const { setFormData } = useContext(FormContext);
+  const { formData, setFormData, setRefreshResume } = useContext(FormContext);
   const [inputEducation, setInputEducation] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const value = e.target.value;
     setInputEducation(value);
+
+    const educationArray = value
+      .split(",")
+      .map((education) => education.trim()); // convert comma-separated string to array
+    setFormData({
+      ...formData,
+      education: educationArray,
+    });
   };
 
   const handleAddEducation = async () => {
+    if (inputEducation.trim() === "") {
+      alert("Please add your education");
+      return;
+    }
     try {
       const res = await axios.post(`http://localhost:8080/education/${id}`, {
-        educationInput: inputEducation,
+        educationInput: formData.education,
       });
 
       if (res.status === 200) {
+        setRefreshResume((prev) => !prev);
         alert("Education added successfully");
         setInputEducation("");
         setFormData((prev) => ({
           ...prev,
           education: res.data.education,
         }));
-        navigate(`/fullresume/${id}`, { state: { resumeId: id } });
+
+        navigate(`/fullresume/${id}`);
       }
     } catch (err) {
       console.error(err);

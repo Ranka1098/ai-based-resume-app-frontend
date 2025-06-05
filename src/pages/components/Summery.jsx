@@ -5,8 +5,7 @@ import { ImCross } from "react-icons/im";
 import FormContext from "@/context/FormContext";
 
 const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
-  const { formData, setFormData } = useContext(FormContext);
-  console.log(formData.summery);
+  const { formData, setFormData, setRefreshResume } = useContext(FormContext);
   const [aiDailougeBox, setAiDilougeBox] = useState(false);
   const [aiInput, setAiInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,7 +13,7 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, summery: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -26,6 +25,7 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
       });
 
       if (res.status === 200) {
+        setRefreshResume((prev) => !prev);
         alert("summary added successfully");
         setFormData((prev) => ({
           ...prev,
@@ -90,7 +90,7 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
             name="summery"
             required
             rows={15}
-            value={formData.summery}
+            value={formData.summery || ""}
             onChange={handleChange}
             className="border-[2px]  p-3 w-full max-h-[350px] text-xl  mt-3  rounded-md border-gray-500    overflow-y-auto"
             placeholder="Add Summery for your Resume"
@@ -105,7 +105,7 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
         {/* dailouge box */}
         {aiDailougeBox ? (
           <div className="fixed inset-0 bg-black/50 flex justify-center items-center  ">
-            <div className="w-[320px] bg-white p-4 rounded-2xl">
+            <div className="w-[520px]  bg-white p-4 rounded-2xl">
               <div
                 onClick={() => setAiDilougeBox(!aiDailougeBox)}
                 className="flex justify-end cursor-pointer  "
@@ -124,6 +124,16 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
               >
                 Ask Summery
               </label>
+              <div className="my-1 font-serif">
+                {" "}
+                Note - Ask to AI give summery for 2 to 3 Lines for specific
+                JobTitle.
+                <p className="my-1 ">
+                  Ex.Give summery 2 to 3 line mern stack developer seeking an
+                  entry level job position to leverage skills and contribute to
+                  a dynamic team. Eager to learn and grow professionally.
+                </p>
+              </div>
               <input
                 type="text"
                 required

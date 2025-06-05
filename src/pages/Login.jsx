@@ -38,7 +38,7 @@ const Login = () => {
         alert("logged in successfull");
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.data));
-        navigate("/");
+        window.location.href = "/";
       }
       setIsLoading(false);
     } catch (error) {
