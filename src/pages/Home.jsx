@@ -14,9 +14,14 @@ const Home = () => {
   const [resumeList, setAllResumeList] = useState([]);
   const navigate = useNavigate();
 
-  const getResume = async () => {
+  const createResume = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/allresume");
+      const user = JSON.parse(localStorage.getItem("user"));
+      const email = user?.email;
+
+      const res = await axios.get(
+        `http://localhost:8080/allresume?userEmail=${email}`
+      );
       if (res.data && res.data.data) {
         setAllResumeList(res.data.data);
       }
@@ -26,7 +31,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getResume();
+    createResume();
   }, []);
 
   const handleDelete = async (id) => {
@@ -60,7 +65,7 @@ const Home = () => {
 
       <div className="flex flex-col  md:flex-row gap-6">
         <div className="mt-[-19px]">
-          <AddButton onResumeAdded={getResume} />
+          <AddButton onResumeAdded={createResume} />
         </div>
 
         <div className="flex flex-wrap gap-6">
