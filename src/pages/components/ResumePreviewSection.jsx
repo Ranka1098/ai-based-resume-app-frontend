@@ -122,7 +122,7 @@ const ResumePreviewSection = ({ id }) => {
                       style={{ borderColor: themeColor }}
                     >
                       {exp.designation}
-                      <p>{"-"}</p>
+                      <span>{"-"}</span>
                       <span className="text-sm text-center text-black">
                         {exp.companyName}
                       </span>

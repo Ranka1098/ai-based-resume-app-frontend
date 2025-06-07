@@ -18,7 +18,6 @@ import {
 const FullResume = () => {
   const [resumeData, setResumeData] = useState(null);
   const { formData, refreshResume } = useContext(FormContext);
-  const [atsResumeData, setAtsResumeData] = useState(null);
   const themeColor = formData?.themeColor || "#000";
 
   const { id } = useParams();
@@ -27,8 +26,6 @@ const FullResume = () => {
   const title = `this is my ${resumeData?.title} resume see it`;
 
   const navigate = useNavigate();
-
-  console.log(atsResumeData);
 
   const singleResume = async () => {
     const res = await axios.get(
@@ -47,24 +44,6 @@ const FullResume = () => {
   useEffect(() => {
     singleResume();
   }, [id, refreshResume]);
-
-  useEffect(() => {
-    const ATS_Resume = async () => {
-      if (!resumeData) return;
-
-      try {
-        const response = await axios.post("http://localhost:8080/atsResume", {
-          resume: resumeData, // sending full resume data
-        });
-        console.log("ats resume", response?.data);
-        setAtsResumeData(response?.data?.atsResume);
-      } catch (error) {
-        console.error("Error generating ATS resume:", error.message);
-      }
-    };
-
-    ATS_Resume();
-  }, [resumeData]);
 
   const projectData = resumeData?.projects?.length
     ? resumeData.projects

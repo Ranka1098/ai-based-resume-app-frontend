@@ -49,8 +49,6 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
       console.error("Error in submitting personal details:", error);
       alert("Submission failed. Check the console for error details.");
     }
-
-    console.log(formData);
   };
   return (
     <div className="max-w-3xl mx-auto my-6">
