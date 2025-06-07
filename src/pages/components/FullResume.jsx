@@ -114,7 +114,7 @@ const FullResume = () => {
 
         <div>
           {showShareOptions && (
-            <div className="absolute top-35 left-[40%] p-2 rounded-md bg-gray-400">
+            <div className="absolute top-55 md:top-35 left-38 md:left-[40%] md:p-2 rounded-md bg-gray-400">
               <div className="flex gap-4">
                 <FacebookShareButton
                   url={shareUrl}
