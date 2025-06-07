@@ -7,6 +7,7 @@ import { IoLocationOutline } from "react-icons/io5";
 const ResumePreviewSection = ({ id }) => {
   const [resumeData, setResumeData] = useState(null);
   const { formData, refreshResume } = useContext(FormContext);
+  const themeColor = formData?.themeColor || "#000";
 
   const singleResume = async () => {
     const res = await axios.get(
@@ -40,9 +41,15 @@ const ResumePreviewSection = ({ id }) => {
       {/* Inner scrollable box */}
       <div className="overflow-y-scroll max-h-[85vh] bg-white p-5 h-full rounded-md shadow-md">
         {/* personal info section */}
-        <div className="border-t-[1rem] border-t-red-400">
+        <div
+          className="border-t-[1rem] border-t-red-400"
+          style={{ borderColor: themeColor }}
+        >
           {/* Name */}
-          <h1 className="pt-5 text-center text-2xl font-bold">
+          <h1
+            className="pt-5 text-center text-2xl font-bold"
+            style={{ borderColor: themeColor }}
+          >
             {resumeData?.personalInfo?.firstName?.toUpperCase() ||
               formData?.personalInfo?.firstName?.toUpperCase() ||
               "FirstName"}{" "}
@@ -68,7 +75,10 @@ const ResumePreviewSection = ({ id }) => {
           </h2>
 
           {/* Contact */}
-          <div className="my-1 flex justify-between border-b-[3px] py-1 border-b-red-400">
+          <div
+            className="my-1 flex justify-between border-b-[3px] py-1 border-b-red-400"
+            style={{ borderColor: themeColor }}
+          >
             <div className="flex items-center gap-2 justify-center">
               <span className="text-xl">☎️</span>
               <p className="text-lg font-bold">
@@ -94,7 +104,10 @@ const ResumePreviewSection = ({ id }) => {
           </div>
 
           {/* Experience Section */}
-          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+          <h1
+            className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400 "
+            style={{ borderColor: themeColor, color: themeColor }}
+          >
             Work Experince
           </h1>
 
@@ -104,14 +117,20 @@ const ResumePreviewSection = ({ id }) => {
               <div key={exp._id || index} className="mb-4">
                 <div className="flex justify-between mt-1">
                   <div className="flex flex-col">
-                    <p className="text-red-400 font-semibold flex gap-2 items-center">
+                    <p
+                      className="text-red-400 font-semibold flex gap-2 items-center"
+                      style={{ borderColor: themeColor }}
+                    >
                       {exp.designation}
                       <p>{"-"}</p>
                       <span className="text-sm text-center text-black">
                         {exp.companyName}
                       </span>
                     </p>
-                    <p className="text-red-400 justify-center font-serif text-sm flex gap-2 items-center">
+                    <p
+                      className="text-red-400 justify-center font-serif text-sm flex gap-2 items-center"
+                      style={{ borderColor: themeColor }}
+                    >
                       {exp.city}
                       <span className="text-sm text-center text-black">
                         {exp.state}
@@ -135,7 +154,10 @@ const ResumePreviewSection = ({ id }) => {
           {/* Repeat experiences... */}
 
           {/* Project Section */}
-          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+          <h1
+            className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400"
+            style={{ borderColor: themeColor, color: themeColor }}
+          >
             PROJECT
           </h1>
           <div className="flex gap-5 flex-col">
@@ -160,7 +182,10 @@ const ResumePreviewSection = ({ id }) => {
           </div>
 
           {/* Skills */}
-          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+          <h1
+            className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400"
+            style={{ borderColor: themeColor, color: themeColor }}
+          >
             SKILL
           </h1>
           <ul
@@ -174,7 +199,10 @@ const ResumePreviewSection = ({ id }) => {
               : "No skills yet"}
           </ul>
           {/* Education */}
-          <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+          <h1
+            className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400"
+            style={{ borderColor: themeColor, color: themeColor }}
+          >
             EDUCATION
           </h1>
           <ul

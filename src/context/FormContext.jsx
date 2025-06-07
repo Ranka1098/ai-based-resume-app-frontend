@@ -37,6 +37,7 @@ export const FormProvider = ({ children }) => {
     skill: [],
     education: [],
     isProfessionalInfoSkipped: false,
+    themeColor: "#FF3380",
   });
 
   return (

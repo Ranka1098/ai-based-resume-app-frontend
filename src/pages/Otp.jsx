@@ -5,6 +5,7 @@ import axios from "axios";
 
 const Otp = () => {
   const [otpfiled, setOptfiled] = useState(new Array(6).fill(""));
+  const inputRef = useRef([]);
 
   const location = useLocation();
   const email = location.state?.email;
@@ -17,15 +18,18 @@ const Otp = () => {
     }
   }, [email]);
 
-  const inputRef = useRef([]);
-
   const handleChange = (e, index) => {
     const value = e.target.value;
+    if (isNaN(value.trim())) {
+      return;
+    }
 
     const copyOtp = [...otpfiled];
     copyOtp[index] = value.slice(-1);
     setOptfiled(copyOtp);
-    inputRef.current[index + 1].focus();
+    if (value && index < inputRef.current.length - 1) {
+      inputRef.current[index + 1]?.focus();
+    }
   };
 
   useEffect(() => {
@@ -33,7 +37,27 @@ const Otp = () => {
   }, []);
 
   const handleKeydown = (e, index) => {
-    console.log(e.key);
+    const key = e.key;
+    if (key === "ArrowLeft" && index > 0) {
+      inputRef.current[index - 1]?.focus();
+    }
+
+    if (key === "ArrowRight" && index < otpfiled.length - 1) {
+      inputRef.current[index + 1]?.focus();
+    }
+
+    if (key === "Backspace") {
+      const copyOtp = [...otpfiled];
+      // If current input is empty, go to previous field
+      if (copyOtp[index] === "") {
+        if (index > 0) {
+          inputRef.current[index - 1]?.focus();
+        }
+      } else {
+        copyOtp[index] = "";
+        setOptfiled(copyOtp);
+      }
+    }
   };
 
   const handleverifyOtp = async () => {

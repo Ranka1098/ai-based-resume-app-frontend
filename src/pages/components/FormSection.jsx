@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { CiGrid41 } from "react-icons/ci";
 import { FaArrowRight } from "react-icons/fa6";
 import PersonalDetail from "./PersonalDetail";
 import { FaArrowLeft } from "react-icons/fa6";
@@ -9,6 +8,7 @@ import ProjectInfo from "./ProjectInfo";
 import Skill from "./Skill";
 import Education from "./Education";
 import FullResume from "./FullResume";
+import ThemeColor from "./ThemeColor";
 
 const FormSection = ({ id }) => {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -17,11 +17,8 @@ const FormSection = ({ id }) => {
       <div>
         {/* Logo and Button */}
         <div className="flex items-center justify-between mb-10">
-          <div
-            className={`flex items-center gap-2 border border-gray-400 rounded-md p-2 w-[6rem]`}
-          >
-            <CiGrid41 className="text-xl" />
-            <p className="font-medium">Theme</p>
+          <div>
+            <ThemeColor />
           </div>
 
           <div className="flex gap-2 ">

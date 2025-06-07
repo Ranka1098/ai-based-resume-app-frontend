@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LOGO from "../images/LOGO.png";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { FaUser } from "react-icons/fa6";
+import { MdOutlineLogout } from "react-icons/md";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const [user, setUser] = useState(localStorage.getItem("user"));
+
+  const [showuser, setShowUser] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser)); // 🔁 Parse string to object
+    }
+  }, []);
 
   const logout = async () => {
     localStorage.removeItem("token");
@@ -18,21 +32,35 @@ const Header = () => {
     <div className="flex justify-between items-center px-6 py-2 shadow-md bg-white sticky top-0 z-50 ">
       <div className=" ">
         <Link to={"/"}>
-          <img src={LOGO} alt="" width={65} />
+          <img src={LOGO} alt="logo" className="w-16 sm:w-20 md:w-[65px]" />
         </Link>
       </div>
-      <p className="font-sans font-bold text-2xl">
+      <p className="font-sans font-bold md:text-2xl">
         AI BASED RESUME BUILDER APP
       </p>
 
-      <div className="flex justify-between">
-        <button
-          onClick={logout}
-          className="bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold hover:bg-purple-800 transition duration-300"
-        >
-          Logout
-        </button>
+      <div>
+        {location.pathname === "/" && (
+          <div className="border-2 0  border-black p-2 rounded-full cursor-pointer">
+            <p onClick={() => setShowUser(!showuser)}>
+              <FaUser size={25} />
+            </p>
+          </div>
+        )}
       </div>
+
+      {showuser && user && (
+        <div className="absolute mr-1 right-0 top-13 mt-2  bg-gray-200 shadow-md rounded-md p-1 border z-10">
+          <p className="text-md md:font-semibold text-center">{user?.name}</p>
+          <p className="text-xs md:text-sm text-gray-700 mb-3">{user?.email}</p>
+          <button
+            onClick={logout}
+            className="bg-red-500 cursor-pointer text-white flex justify-center px-4 py-2 rounded-md w-full hover:bg-red-600 transition duration-300"
+          >
+            <MdOutlineLogout />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

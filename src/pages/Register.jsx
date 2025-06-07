@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaEyeSlash } from "react-icons/fa6";
+import { BsEyeFill } from "react-icons/bs";
 
 const Register = () => {
   const [userInfo, setUserInfo] = useState({
@@ -8,6 +10,8 @@ const Register = () => {
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,6 +23,10 @@ const Register = () => {
   };
 
   const submitHandler = async (e) => {
+    if (!userInfo.email || !userInfo.password || !userInfo.username) {
+      alert("add fields are required");
+      return;
+    }
     try {
       e.preventDefault();
       setIsLoading(true);
@@ -76,15 +84,28 @@ const Register = () => {
             <label className="block text-gray-700 mb-1 font-semibold">
               Password
             </label>
-            <input
-              type="password"
-              className="w-full p-3 border border-gray-300 rounded-md mb-4 focus:ring-2 focus:ring-purple-500 focus:outline-none"
-              placeholder="Enter your password..."
-              value={userInfo.password}
-              name="password"
-              autoComplete="current-password"
-              onChange={onchangeHandler}
-            />
+            <div className="">
+              <input
+                type={showPassword ? "password" : "text"}
+                className="realtive  w-full p-3 border border-gray-300 rounded-md mb-4 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                placeholder="Enter your password..."
+                value={userInfo.password}
+                name="password"
+                autoComplete="current-password"
+                onChange={onchangeHandler}
+              />
+              <button
+                className="absolute top-[61%] md:right-[40%] right-28  text-gray-600"
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <FaEyeSlash size={25} />
+                ) : (
+                  <BsEyeFill size={25} />
+                )}
+              </button>
+            </div>
 
             <button
               type="submit"

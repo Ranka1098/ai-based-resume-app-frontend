@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FaEyeSlash } from "react-icons/fa6";
+import { BsEyeFill } from "react-icons/bs";
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({
@@ -9,6 +11,7 @@ const Login = () => {
   });
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onchageHandler = (e) => {
     const { name, value } = e.target;
@@ -90,15 +93,28 @@ const Login = () => {
             <label className="block text-gray-700 mb-1 font-bold">
               Password
             </label>
-            <input
-              type="password"
-              className="w-full p-2 border border-gray-300 rounded-md mb-4"
-              placeholder="Enter your password.."
-              name="password"
-              autoComplete="current-password"
-              value={userInfo.password}
-              onChange={onchageHandler}
-            />
+            <div>
+              <input
+                type={showPassword ? "password" : "text"}
+                className="w-full p-2 border border-gray-300 rounded-md mb-4"
+                placeholder="Enter your password.."
+                name="password"
+                autoComplete="current-password"
+                value={userInfo.password}
+                onChange={onchageHandler}
+              />
+              <button
+                className="absolute top-[61%] md:right-[40%] right-28  text-gray-600"
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <FaEyeSlash size={25} />
+                ) : (
+                  <BsEyeFill size={25} />
+                )}
+              </button>
+            </div>
             <button
               type="submit"
               className="w-full bg-purple-700 text-white py-2 rounded-md hover:bg-purple-800"

@@ -19,6 +19,7 @@ const FullResume = () => {
   const [resumeData, setResumeData] = useState(null);
   const { formData, refreshResume } = useContext(FormContext);
   const [atsResumeData, setAtsResumeData] = useState(null);
+  const themeColor = formData?.themeColor || "#000";
 
   const { id } = useParams();
   const [showShareOptions, setShowShareOptions] = useState(false);
@@ -161,7 +162,10 @@ const FullResume = () => {
 
         <div className="w-full max-w-[750px] print:shadow-none print:border-none print:p-0 print:m-0 print:rounded-none my-5 bg-white py-2 px-4 rounded-xl shadow-xl border border-gray-300 ">
           {/* Header */}
-          <div className="border-t-[5px] border-t-red-500 mb-2">
+          <div
+            className="border-t-[5px] border-t-red-500 mb-2"
+            style={{ borderColor: themeColor }}
+          >
             {/* Name */}
             <h1 className="pt-2 text-center text-3xl font-extrabold text-gray-800">
               {resumeData?.personalInfo?.firstName.toUpperCase() || "FirstName"}{" "}
@@ -182,7 +186,10 @@ const FullResume = () => {
             </div>
 
             {/* Contact Info */}
-            <div className="flex justify-between items-center border-b-4 border-b-red-400  py-1 px-2">
+            <div
+              className="flex justify-between items-center border-b-4 border-b-red-400  py-1 px-2"
+              style={{ borderColor: themeColor }}
+            >
               <div className="flex items-center gap-2">
                 <span className="text-xl">☎️</span>
                 <p className="text-md font-semibold text-gray-700">
@@ -210,7 +217,10 @@ const FullResume = () => {
             Array.isArray(resumeData?.professionalInfo) &&
             resumeData?.professionalInfo.length > 0 && (
               <>
-                <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+                <h1
+                  className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400"
+                  style={{ borderColor: themeColor }}
+                >
                   Work Experince
                 </h1>
 
@@ -261,7 +271,10 @@ const FullResume = () => {
 
           {/* Projects */}
           <section className="mb-8">
-            <h1 className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400">
+            <h1
+              className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400"
+              style={{ borderColor: themeColor, color: themeColor }}
+            >
               PROJECT
             </h1>
             <div className="flex gap-5 flex-col">
@@ -288,7 +301,10 @@ const FullResume = () => {
 
           {/* Skills */}
           <section className="mb-8">
-            <h3 className="text-xl font-semibold text-red-500 mb-2 border-b-2 pb-1 border-red-400">
+            <h3
+              className="text-xl font-semibold text-center text-red-500 mb-2 border-b-2 pb-1 border-red-400"
+              style={{ borderColor: themeColor, color: themeColor }}
+            >
               Skills
             </h3>
             <ul className="list-disc pl-6 text-gray-800 font-medium space-y-1">
@@ -300,7 +316,10 @@ const FullResume = () => {
 
           {/* Education */}
           <section className="mb-2">
-            <h3 className="text-xl font-semibold text-red-500 mb-2 border-b-2 pb-1 border-red-400">
+            <h3
+              className="text-xl font-semibold text-center text-red-500 mb-2 border-b-2 pb-1 border-red-400"
+              style={{ borderColor: themeColor, color: themeColor }}
+            >
               Education
             </h3>
             <ul className="list-disc pl-6 text-gray-800 font-medium space-y-1">

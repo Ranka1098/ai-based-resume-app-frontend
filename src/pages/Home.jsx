@@ -23,7 +23,7 @@ const Home = () => {
         `http://localhost:8080/allresume?userEmail=${email}`
       );
       if (res.data && res.data.data) {
-        setAllResumeList(res.data.data);
+        setAllResumeList(res.data.data.reverse());
       }
     } catch (error) {
       console.error("Failed to fetch resumes:", error.message);
@@ -57,14 +57,16 @@ const Home = () => {
   return (
     <div className="px-6 py-6 md:px-14 md:py-8">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">My Resume</h1>
+        <h1 className="text-center md:text-left text-3xl font-bold text-gray-800">
+          My Resume
+        </h1>
         <p className="text-lg mt-2 text-gray-600">
           Start creating AI-powered resumes for your next job
         </p>
       </div>
-
-      <div className="flex flex-col  md:flex-row gap-6">
-        <div className="mt-[-19px]">
+      {/* ------------------------ */}
+      <div className="flex  gap-6 ">
+        <div className="mt-[-19px]  ">
           <AddButton onResumeAdded={createResume} />
         </div>
 
@@ -72,7 +74,7 @@ const Home = () => {
           {resumeList.map((val) => (
             <div
               key={val._id}
-              className="relative group w-36 h-36 bg-gray-200  border border-gray-300 rounded-lg shadow hover:shadow-md transition-shadow duration-300"
+              className="relative group w-30 h-30 md:w-36 md:h-36 bg-gray-200  border border-gray-300 rounded-lg shadow hover:shadow-md transition-shadow duration-300"
             >
               <Link to={`/resume/${val._id}`} className="block h-full">
                 <div className="w-full h-full flex items-center justify-center px-2 text-center text-sm font-medium text-gray-700">
@@ -117,6 +119,7 @@ const Home = () => {
           ))}
         </div>
       </div>
+      {/* ------------------------ */}
     </div>
   );
 };
