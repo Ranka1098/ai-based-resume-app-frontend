@@ -30,11 +30,14 @@ const Register = () => {
     try {
       e.preventDefault();
       setIsLoading(true);
-      const res = await axios.post("http://localhost:8080/api/auth/register", {
-        name: userInfo.username,
-        email: userInfo.email,
-        password: userInfo.password,
-      });
+      const res = await axios.post(
+        "https://ai-based-resume-app-backend.onrender.com/api/auth/register",
+        {
+          name: userInfo.username,
+          email: userInfo.email,
+          password: userInfo.password,
+        }
+      );
 
       if (res.status === 201 || res.status === 200) {
         alert("verify otp");

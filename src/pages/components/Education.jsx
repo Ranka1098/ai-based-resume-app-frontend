@@ -27,9 +27,12 @@ const Education = ({ id }) => {
       return;
     }
     try {
-      const res = await axios.post(`http://localhost:8080/education/${id}`, {
-        educationInput: formData.education,
-      });
+      const res = await axios.post(
+        `https://ai-based-resume-app-backend.onrender.com/education/${id}`,
+        {
+          educationInput: formData.education,
+        }
+      );
 
       if (res.status === 200) {
         setRefreshResume((prev) => !prev);

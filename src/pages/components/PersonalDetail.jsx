@@ -18,14 +18,17 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
 
     // api call
     try {
-      const res = await axios.put(`http://localhost:8080/personDetail/${id}`, {
-        firstName: formData.personalInfo.firstName,
-        lastName: formData.personalInfo.lastName,
-        jobTitle: formData.personalInfo.jobTitle,
-        address: formData.personalInfo.address,
-        phone: formData.personalInfo.phone,
-        email: formData.personalInfo.email,
-      });
+      const res = await axios.put(
+        `https://ai-based-resume-app-backend.onrender.com/personDetail/${id}`,
+        {
+          firstName: formData.personalInfo.firstName,
+          lastName: formData.personalInfo.lastName,
+          jobTitle: formData.personalInfo.jobTitle,
+          address: formData.personalInfo.address,
+          phone: formData.personalInfo.phone,
+          email: formData.personalInfo.email,
+        }
+      );
 
       if (res.status === 200) {
         setRefreshResume((prev) => !prev);

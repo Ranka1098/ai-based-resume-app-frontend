@@ -20,7 +20,7 @@ const Home = () => {
       const email = user?.email;
 
       const res = await axios.get(
-        `http://localhost:8080/allresume?userEmail=${email}`
+        `hhttps://ai-based-resume-app-backend.onrender.com0/allresume?userEmail=${email}`
       );
       if (res.data && res.data.data) {
         setAllResumeList(res.data.data.reverse());
@@ -42,7 +42,7 @@ const Home = () => {
 
     try {
       const res = await axios.post(
-        `http://localhost:8080/deleteSingleResume/${id}`
+        `https://ai-based-resume-app-backend.onrender.com/deleteSingleResume/${id}`
       );
 
       if (res.status === 200) {

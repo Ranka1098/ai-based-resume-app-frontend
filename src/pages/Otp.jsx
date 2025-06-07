@@ -64,10 +64,13 @@ const Otp = () => {
     try {
       const otp = otpfiled.join("");
       console.log(otp);
-      const res = await axios.post("http://localhost:8080/api/auth/verifyOtp", {
-        email: email,
-        otp: otp,
-      });
+      const res = await axios.post(
+        "https://ai-based-resume-app-backend.onrender.com/api/auth/verifyOtp",
+        {
+          email: email,
+          otp: otp,
+        }
+      );
 
       if (res.status === 200) {
         alert("otp sucessfully verify");

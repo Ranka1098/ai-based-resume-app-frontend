@@ -11,7 +11,7 @@ const ResumePreviewSection = ({ id }) => {
 
   const singleResume = async () => {
     const res = await axios.get(
-      `http://localhost:8080/singleResumeDetail/${id}`
+      `https://ai-based-resume-app-backend.onrender.com/singleResumeDetail/${id}`
     );
     setResumeData(res.data);
   };

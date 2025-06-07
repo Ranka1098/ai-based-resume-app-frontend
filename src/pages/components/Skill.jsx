@@ -22,9 +22,12 @@ const Skill = ({ id, activeFormIndex, setActiveFormIndex }) => {
       return;
     }
     try {
-      const res = await axios.post(`http://localhost:8080/skill/${id}`, {
-        skillInput: formData.skill,
-      });
+      const res = await axios.post(
+        `https://ai-based-resume-app-backend.onrender.com/skill/${id}`,
+        {
+          skillInput: formData.skill,
+        }
+      );
 
       if (res.status === 200) {
         setRefreshResume((prev) => !prev);

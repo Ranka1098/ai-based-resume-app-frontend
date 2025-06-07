@@ -20,9 +20,12 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
     e.preventDefault();
 
     try {
-      const res = await axios.put(`http://localhost:8080/summery/${id}`, {
-        summery: formData.summery,
-      });
+      const res = await axios.put(
+        `https://ai-based-resume-app-backend.onrender.com/summery/${id}`,
+        {
+          summery: formData.summery,
+        }
+      );
 
       if (res.status === 200) {
         setRefreshResume((prev) => !prev);
@@ -44,9 +47,12 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
 
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:8080/ai", {
-        prompt: aiInput,
-      });
+      const response = await axios.post(
+        "https://ai-based-resume-app-backend.onrender.com/ai",
+        {
+          prompt: aiInput,
+        }
+      );
 
       const summaryText = response.data.summary;
       setFormData((prev) => ({

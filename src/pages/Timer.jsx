@@ -18,9 +18,12 @@ const Timer = ({ email }) => {
   const handleResend = async () => {
     alert("resent OTP");
     setTimer(60);
-    const res = await axios.post("http://localhost:8080/api/auth/resendOtp", {
-      email: email,
-    });
+    const res = await axios.post(
+      "https://ai-based-resume-app-backend.onrender.com/api/auth/resendOtp",
+      {
+        email: email,
+      }
+    );
 
     if (res.status === 200) {
       alert("opt resend successfully");

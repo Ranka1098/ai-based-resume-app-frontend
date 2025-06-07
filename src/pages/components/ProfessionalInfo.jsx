@@ -69,7 +69,7 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
 
     try {
       const res = await axios.post(
-        `http://localhost:8080/professionalDetail/${id}`,
+        `https://ai-based-resume-app-backend.onrender.com/professionalDetail/${id}`,
         {
           professionalInfo: formData.professionalInfo,
         }

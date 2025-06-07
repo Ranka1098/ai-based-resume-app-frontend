@@ -7,7 +7,7 @@ const useSingleResume = ({ id }) => {
     const fetchResumeDetails = async () => {
       try {
         const response = await axios.post(
-          `http://localhost:8080/singleResumeDetail/${id}`
+          `https://ai-based-resume-app-backend.onrender.com/singleResumeDetail/${id}`
         );
         console.log("Response Resume Details", response);
         if (response?.data) {

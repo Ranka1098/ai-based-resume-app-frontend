@@ -11,12 +11,15 @@ const AddButton = ({ onResumeAdded }) => {
 
   const handleClicked = async () => {
     try {
-      const res = await axios.post("http://localhost:8080/resumeInfo", {
-        title: title,
-        userName: user.name,
-        userEmail: user.email,
-        resumeId: uuidv4(),
-      });
+      const res = await axios.post(
+        "https://ai-based-resume-app-backend.onrender.com/resumeInfo",
+        {
+          title: title,
+          userName: user.name,
+          userEmail: user.email,
+          resumeId: uuidv4(),
+        }
+      );
 
       if (res.status === 200) {
         alert("resume created");

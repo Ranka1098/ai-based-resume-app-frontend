@@ -56,9 +56,12 @@ const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
     }
 
     try {
-      const res = await axios.post(`http://localhost:8080/projects/${id}`, {
-        projects: formData.projects,
-      });
+      const res = await axios.post(
+        `https://ai-based-resume-app-backend.onrender.com/projects/${id}`,
+        {
+          projects: formData.projects,
+        }
+      );
 
       if (res.status === 200) {
         setRefreshResume((prev) => !prev);
@@ -83,16 +86,18 @@ const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
   const handleFeatureAi = async () => {
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:8080/ai", {
-        prompt: aiFeature,
-      });
+      const res = await axios.post(
+        "https://ai-based-resume-app-backend.onrender.com/ai",
+        {
+          prompt: aiFeature,
+        }
+      );
       setAiFeatureOutPut(res.data.summary);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
-
   };
   return (
     <div className="max-w-3xl mx-auto ">

@@ -9,6 +9,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -27,7 +29,7 @@ const Login = () => {
       setIsLoading(true);
 
       const res = await axios.post(
-        "http://localhost:8080/api/auth/login",
+        "https://ai-based-resume-app-backend.onrender.com/api/auth/login",
         {
           email: userInfo.email,
           password: userInfo.password,
@@ -43,9 +45,12 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(res.data.data));
         window.location.href = "/";
       }
-      setIsLoading(false);
     } catch (error) {
-      alert(error.response.data.message);
+      alert(error?.response?.data?.message || "Login failed");
+      setErrorMessage(error?.response?.data?.message || "Login failed");
+
+      setIsLoading(false);
+      return;
     }
   };
   return (
@@ -141,6 +146,9 @@ const Login = () => {
           </span>
         </p>
       </div>
+      {errorMessage && (
+        <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+      )}
     </div>
   );
 };
