@@ -20,7 +20,7 @@ const Home = () => {
       const email = user?.email;
 
       const res = await axios.get(
-        `hhttps://ai-based-resume-app-backend.onrender.com0/allresume?userEmail=${email}`
+        `https://ai-based-resume-app-backend.onrender.com/allresume?userEmail=${email}`
       );
       if (res.data && res.data.data) {
         setAllResumeList(res.data.data.reverse());
