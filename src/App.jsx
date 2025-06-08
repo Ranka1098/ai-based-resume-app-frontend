@@ -1,7 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register from "./pages/Register";
-import Otp from "./pages/otp";
+import Otp from "./pages/Otp";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import ForgetPassword from "./pages/ForgetPassword";
