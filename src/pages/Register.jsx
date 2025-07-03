@@ -87,7 +87,7 @@ const Register = () => {
             <label className="block text-gray-700 mb-1 font-semibold">
               Password
             </label>
-            <div className="">
+            <div className="relative ">
               <input
                 type={showPassword ? "password" : "text"}
                 className="realtive  w-full p-3 border border-gray-300 rounded-md mb-4 focus:ring-2 focus:ring-purple-500 focus:outline-none"
@@ -98,14 +98,14 @@ const Register = () => {
                 onChange={onchangeHandler}
               />
               <button
-                className="absolute top-[61%] md:right-[40%] right-28  text-gray-600"
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/3 -translate-y-1/2 transform text-gray-600"
               >
                 {showPassword ? (
-                  <FaEyeSlash size={25} />
+                  <FaEyeSlash size={20} />
                 ) : (
-                  <BsEyeFill size={25} />
+                  <BsEyeFill size={20} />
                 )}
               </button>
             </div>

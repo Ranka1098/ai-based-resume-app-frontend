@@ -49,58 +49,72 @@ const FullResume = () => {
     ? resumeData.projects
     : formData?.projects || [];
 
-  const professionalData = resumeData?.professionalInfo?.length
-    ? resumeData.professionalInfo
-    : formData?.professionalInfo || [];
+  const professionalData = (
+    resumeData?.professionalInfo?.length
+      ? resumeData.professionalInfo
+      : formData?.professionalInfo || []
+  ).filter(
+    (item) => item?.designation || item?.companyName || item?.workSummery
+  );
+
+  const skill = resumeData?.skill?.length
+    ? resumeData.skill
+    : formData?.skill || [];
+
+  const education = resumeData?.education?.length
+    ? resumeData.education
+    : formData?.education || [];
 
   return (
-    <div className="flex items-center justify-center  p-5 relative">
+    <div className="flex items-center justify-center  relative">
       <div className="absolute top-6 left-6 flex gap-3 print:hidden">
         <button
           onClick={() => navigate("/")}
-          className="bg-white border border-gray-300 px-4  rounded-md hover:bg-gray-200 transition-all font-medium shadow-sm"
+          className="bg-white border border-gray-300 px-4  rounded-md hover:bg-gray-200 transition-all font-medium shadow-sm print:hidden "
         >
           ⬅️ Back
         </button>
       </div>
 
-      <div>
-        <div className="w-full max-w-[750px] print:hidden">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2 text-center">
+      <div className="mt-15 print:mt-0 p-2">
+        <div className="w-full max-w-[750px] mx-auto px-4 sm:px-6 print:shadow-none print:border-none print:p-0 print:m-0 print:rounded-none my-5 bg-white py-4 rounded-xl shadow-xl border border-gray-300  print:hidden">
+          <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 mb-2 text-center">
             🎉 Congratulations! Your AI-Generated Resume is Ready!
           </h1>
-          <p className="text-lg text-gray-600 mb-6 text-center">
-            You can now download your resume or share a unique link with your
-            friends and family.
+
+          <p className="text-sm sm:text-lg text-gray-600 mb-6 text-center">
+            You can now download your resume or share a unique link.
           </p>
         </div>
-        <div className="flex justify-between my-2 print:hidden">
-          <button
-            onClick={handleDownload}
-            className="bg-white border border-gray-300 px-4  rounded-md hover:bg-gray-200 transition-all font-medium shadow-sm"
-          >
-            ⬇️ Download
-          </button>
 
-          <button
-            onClick={handleShare}
-            className="bg-white border flex items-center gap-2 border-gray-300 px-4  rounded-md hover:bg-gray-200 transition-all font-medium shadow-sm"
-          >
-            <FcShare size={20} />
-            Share
-          </button>
-        </div>
+        <div className="relative w-full sm:w-auto  print:hidden">
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={handleDownload}
+              className="bg-white  border flex items-center justify-center  border-gray-300 px-4 py-2 rounded-md hover:bg-gray-200 transition-all font-medium shadow-sm w-full sm:w-auto"
+            >
+              <FcShare size={20} />
+              Download
+            </button>
 
-        <div>
+            <button
+              onClick={handleShare}
+              className="bg-white border flex items-center justify-center gap-2 border-gray-300 px-4 py-2 rounded-md hover:bg-gray-200 transition-all font-medium shadow-sm w-full sm:w-auto"
+            >
+              <FcShare size={20} />
+              Share
+            </button>
+          </div>
           {showShareOptions && (
-            <div className="absolute top-55 md:top-35 left-38 md:left-[40%] md:p-2 rounded-md bg-gray-400">
-              <div className="flex gap-4">
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white p-3 rounded-md shadow-md z-50">
+              <div
+                className="flex gap-4 justify-center items-center"
+                onClick={() => setShowShareOptions(false)}
+              >
                 <FacebookShareButton
                   url={shareUrl}
                   quote={title}
-                  onClick={() => {
-                    setShowShareOptions(false);
-                  }}
+                  onClick={() => setShowShareOptions(false)}
                 >
                   <FacebookIcon size={40} round />
                 </FacebookShareButton>
@@ -108,9 +122,7 @@ const FullResume = () => {
                 <WhatsappShareButton
                   url={shareUrl}
                   title={title}
-                  onClick={() => {
-                    setShowShareOptions(false);
-                  }}
+                  onClick={() => setShowShareOptions(false)}
                 >
                   <WhatsappIcon size={40} round />
                 </WhatsappShareButton>
@@ -118,9 +130,7 @@ const FullResume = () => {
                 <TwitterShareButton
                   url={shareUrl}
                   title={title}
-                  onClick={() => {
-                    setShowShareOptions(false);
-                  }}
+                  onClick={() => setShowShareOptions(false)}
                 >
                   <TwitterIcon size={40} round />
                 </TwitterShareButton>
@@ -128,9 +138,7 @@ const FullResume = () => {
                 <LinkedinShareButton
                   url={shareUrl}
                   title={title}
-                  onClick={() => {
-                    setShowShareOptions(false);
-                  }}
+                  onClick={() => setShowShareOptions(false)}
                 >
                   <LinkedinIcon size={40} round />
                 </LinkedinShareButton>
@@ -139,91 +147,112 @@ const FullResume = () => {
           )}
         </div>
 
-        <div className="w-full max-w-[750px] print:shadow-none print:border-none print:p-0 print:m-0 print:rounded-none my-5 bg-white py-2 px-4 rounded-xl shadow-xl border border-gray-300 ">
-          {/* Header */}
-          <div
-            className="border-t-[5px] border-t-red-500 mb-2"
-            style={{ borderColor: themeColor }}
-          >
-            {/* Name */}
-            <h1 className="pt-2 text-center text-3xl font-extrabold text-gray-800">
-              {resumeData?.personalInfo?.firstName.toUpperCase() || "FirstName"}{" "}
-              {resumeData?.personalInfo?.lastName.toUpperCase() || "LastName"}
-            </h1>
-            {/* Title */}
-            <h2 className="text-center text-xl  font-semibold mt-1">
-              {resumeData?.personalInfo?.jobTitle.toUpperCase() || "Job Title"}
-            </h2>
-
-            {/* Address */}
-            <div className="flex justify-center items-center font-semibold  mt-1 gap-2">
-              <IoLocationOutline size={20} />
-              <span>
-                {resumeData?.personalInfo?.address.toUpperCase() ||
-                  "Your Address Here"}
-              </span>
-            </div>
-
-            {/* Contact Info */}
+        <div className="">
+          {/* Inner scrollable box */}
+          <div className="bg-white p-5 h-full rounded-md shadow-md print:overflow-visible print:max-h-full print:shadow-none print:rounded-none print:p-0 print:m-0">
+            {/* personal info section */}
             <div
-              className="flex justify-between items-center border-b-4 border-b-red-400  py-1 px-2"
+              className="border-t-[1rem] border-t-red-400"
               style={{ borderColor: themeColor }}
             >
-              <div className="flex items-center gap-2">
-                <span className="text-xl">☎️</span>
-                <p className="text-md font-semibold text-gray-700">
-                  {resumeData?.personalInfo?.phone || "Phone"}
-                </p>
+              {/* Name */}
+              <h1
+                className="pt-5 text-center text-2xl font-bold"
+                style={{ borderColor: themeColor }}
+              >
+                {resumeData?.personalInfo?.firstName?.toUpperCase() ||
+                  formData?.personalInfo?.firstName?.toUpperCase() ||
+                  "FirstName"}{" "}
+                {resumeData?.personalInfo?.lastName?.toUpperCase() ||
+                  formData?.personalInfo?.lastName?.toUpperCase() ||
+                  "LastName"}
+              </h1>
+              {/* Title */}
+              <h2 className="text-center text-xl font-bold">
+                {resumeData?.personalInfo?.jobTitle?.toUpperCase() ||
+                  formData?.personalInfo?.jobTitle?.toUpperCase() ||
+                  "jobTitle"}
+              </h2>
+
+              {/* Address */}
+              <h2 className="text-center text-lg font-bold my-2">
+                <div className="flex justify-center items-center gap-1">
+                  <IoLocationOutline size={20} />
+                  {resumeData?.personalInfo?.address?.toUpperCase() ||
+                    formData?.personalInfo?.address?.toUpperCase() ||
+                    "address"}
+                </div>
+              </h2>
+
+              {/* Contact */}
+              <div
+                className="my-1 flex justify-between border-b-[3px] py-1 border-b-red-400"
+                style={{ borderColor: themeColor }}
+              >
+                <div className="flex flex-col sm:flex-row justify-start  sm:flex-1">
+                  <div className="flex items-center gap-2 justify-center">
+                    <span className="text-xl">☎️</span>
+                    <p className="text-lg font-bold">
+                      {resumeData?.personalInfo?.phone ||
+                        formData?.personalInfo?.phone ||
+                        "Phone"}
+                    </p>
+                  </div>
+
+                  <div className="flex  items-center gap-2 justify-end  sm:flex-1">
+                    <span className="text-xl">📧</span>
+                    <p className="text-lg font-bold">
+                      {resumeData?.personalInfo?.email ||
+                        formData?.personalInfo?.email ||
+                        "Email"}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-xl">📧</span>
-                <p className="text-md font-semibold text-gray-700">
-                  {resumeData?.personalInfo?.email || "Email"}
-                </p>
+
+              {/* Summary */}
+              <div className=" my-3  w-full whitespace-pre-wrap break-words">
+                {resumeData?.summery ||
+                  formData?.summery ||
+                  "No summary available"}
               </div>
-            </div>
-          </div>
 
-          {/* Summary */}
-          <section className="mb-2">
-            <p className="text-gray-800 leading-relaxed whitespace-pre-wrap">
-              {resumeData?.summery || "No summary available"}
-            </p>
-          </section>
+              {/* Experience Section */}
+              {professionalData.length > 0 && (
+                <>
+                  <h1
+                    className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400 "
+                    style={{ borderColor: themeColor, color: themeColor }}
+                  >
+                    Work Experience
+                  </h1>
 
-          {/* Work Experience */}
-          {!resumeData?.isProfessionalInfoSkipped &&
-            Array.isArray(resumeData?.professionalInfo) &&
-            resumeData?.professionalInfo.length > 0 && (
-              <>
-                <h1
-                  className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400"
-                  style={{ borderColor: themeColor }}
-                >
-                  Work Experince
-                </h1>
-
-                <div>
-                  {Array.isArray(resumeData?.professionalInfo) &&
-                    resumeData?.professionalInfo.map((exp, index) => (
+                  <div>
+                    {professionalData.map((exp, index) => (
                       <div key={exp._id || index} className="mb-4">
-                        <div className="flex justify-between mt-1">
-                          <div className="flex flex-col">
-                            <p className="text-red-400 font-semibold flex gap-2 items-center">
-                              {exp.designation}
-                              <span className="text-sm text-center text-black">
+                        <div className="flex justify-between gap-5 mt-1">
+                          <div className="flex flex-col sm:flex-row">
+                            <p
+                              className="text-sm md:text-md"
+                              style={{ color: themeColor }}
+                            >
+                              {exp.designation}{" "}
+                              <span className="text-black ml-10">
                                 {exp.companyName}
                               </span>
                             </p>
-                            <p className="text-red-400 justify-center  text-sm flex gap-2 items-center">
+                            <p
+                              className="text-red-400 justify-start text-sm flex gap-2 items-center md:ml-5"
+                              style={{ borderColor: themeColor }}
+                            >
                               {exp.city}
-                              <span className="text-sm text-center text-black">
+                              <span className="text-sm text-center text-black ">
                                 {exp.state}
                               </span>
                             </p>
                           </div>
-                          <div className="flex gap-5">
-                            <p className="font-semibold">
+                          <div>
+                            <p className="text-sm">
                               {new Date(exp.startDate).toLocaleDateString(
                                 "en-GB"
                               )}{" "}
@@ -232,159 +261,77 @@ const FullResume = () => {
                                 ? new Date(exp.endDate).toLocaleDateString(
                                     "en-GB"
                                   )
-                                : "Present"}
+                                : "Current"}
                             </p>
                           </div>
                         </div>
-                        <div
-                          style={{ whiteSpace: "pre-line" }}
-                          className=" break-words "
-                        >
-                          <p className="mt-2">{exp.workSummery}</p>
-                        </div>
+                        <p className="mt-2">{exp.workSummery}</p>
                       </div>
                     ))}
-                </div>
-              </>
-            )}
+                  </div>
+                </>
+              )}
 
-          {/* Projects */}
-          <section className="mb-8">
-            <h1
-              className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400"
-              style={{ borderColor: themeColor, color: themeColor }}
-            >
-              PROJECT
-            </h1>
-            <div className="flex gap-5 flex-col">
-              {projectData.map((proj, index) => (
-                <div
-                  key={index}
-                  style={{ whiteSpace: "pre-line" }}
-                  className="font-serif  break-words "
-                >
-                  <p className="font-serif font-semibold">
-                    {proj.title.toUpperCase()}
-                  </p>
-                  <p className="font-semibold text-sm">Features</p>
+              {/* Repeat experiences... */}
+
+              {/* Project Section */}
+              <h1
+                className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400"
+                style={{ borderColor: themeColor, color: themeColor }}
+              >
+                PROJECT
+              </h1>
+              <div className="flex gap-5 flex-col">
+                {projectData.map((proj, index) => (
                   <div
+                    key={index}
                     style={{ whiteSpace: "pre-line" }}
                     className=" break-words "
                   >
-                    <p className="text-md">{proj.feature}</p>
+                    <p className="font-serif font-medium underline underline-offset-4  leading-[1.2]">
+                      {proj.title.toUpperCase()}
+                    </p>
+                    <p className="font-medium text-sm">Features</p>
+                    <div>
+                      <p className="tracking-wide ">{proj.feature}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Skills */}
-          <section className="mb-8">
-            <h3
-              className="text-xl font-semibold text-center text-red-500 mb-2 border-b-2 pb-1 border-red-400"
-              style={{ borderColor: themeColor, color: themeColor }}
-            >
-              Skills
-            </h3>
-            <ul className="list-disc pl-6 text-gray-800 font-medium space-y-1">
-              {resumeData?.skill?.length > 0
-                ? resumeData.skill.map((sk, i) => <li key={i}>{sk}</li>)
-                : "No skills added."}
-            </ul>
-          </section>
-
-          {/* Education */}
-          <section className="mb-2">
-            <h3
-              className="text-xl font-semibold text-center text-red-500 mb-2 border-b-2 pb-1 border-red-400"
-              style={{ borderColor: themeColor, color: themeColor }}
-            >
-              Education
-            </h3>
-            <ul className="list-disc pl-6 text-gray-800 font-medium space-y-1">
-              {resumeData?.education?.length > 0
-                ? resumeData.education.map((edu, i) => <li key={i}>{edu}</li>)
-                : "No education added."}
-            </ul>
-          </section>
-          {/* ATS Resume Analysis */}
-          {/* ATS Resume Analysis */}
-          {/* {atsResumeData && (
-            <section className="mb-8 mt-4 border-t pt-4 border-gray-300">
-              <h3 className="text-xl font-bold text-red-500 mb-2 border-b-2 pb-1 border-red-400">
-                🧠 AI Resume Feedback
-              </h3>
-              <div className="text-gray-800 space-y-4 text-sm leading-relaxed font-medium">
-                <p>
-                  <strong>👤 Name:</strong> ASHOKKUMAR VAISHNAV
-                </p>
-                <p>
-                  <strong>📧 Email:</strong> ashokranka30@gmail.com
-                </p>
-                <p>
-                  <strong>📍 Location:</strong> Manjri, Pune
-                </p>
-
-                <div className="bg-gray-100 p-3 rounded-lg border border-gray-300 space-y-2">
-                  <p>
-                    ✅ <strong>Summary:</strong> Highly motivated MERN Stack
-                    Developer with foundational experience in building web
-                    applications and APIs using MongoDB, Express.js, React.js,
-                    and Node.js.
-                  </p>
-                  <p>
-                    🎯 <strong>Objective:</strong> Seeking an entry-level
-                    position to leverage skills and contribute to a dynamic
-                    team. Eager to learn and grow professionally.
-                  </p>
-                </div>
-
-                <div className="bg-blue-50 p-3 rounded-lg border border-blue-300 space-y-2">
-                  <p className="font-semibold text-blue-600">
-                    💡 AI Suggestions for Improvement:
-                  </p>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>
-                      ✅ <strong>Quantify accomplishments:</strong> Add metrics
-                      like “Improved page speed by 20%”.
-                    </li>
-                    <li>
-                      ✅ <strong>Clarify responsibilities:</strong> Give details
-                      like “Developed REST APIs for user auth”.
-                    </li>
-                    <li>
-                      ✅ <strong>Use action verbs:</strong> Begin with words
-                      like “Built”, “Managed”, “Integrated”.
-                    </li>
-                    <li>
-                      ✅ <strong>Fix grammar/spelling:</strong> Watch for typos
-                      like “Engginer”, “woked”.
-                    </li>
-                    <li>
-                      ✅ <strong>Add more content:</strong> Add more projects,
-                      internships, or open source work.
-                    </li>
-                    <li>
-                      ✅ <strong>Customize for each job:</strong> Use keywords
-                      from the specific job you're applying to.
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="bg-green-50 p-3 rounded-lg border border-green-300 space-y-2">
-                  <p className="text-green-700 font-semibold">
-                    📈 Final Verdict:
-                  </p>
-                  <p>
-                    This resume has been significantly improved for ATS
-                    readability and keyword optimization. With a few refinements
-                    and personalization for job roles, it's ready to land
-                    interviews.
-                  </p>
-                </div>
+                ))}
               </div>
-            </section>
-          )} */}
+
+              {/* Skills */}
+              <h1
+                className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400"
+                style={{ borderColor: themeColor, color: themeColor }}
+              >
+                SKILL
+              </h1>
+              <p className="text-sm font-sans tracking-wide">
+                {skill?.length > 0
+                  ? skill.map((sk, index) => (
+                      <span key={index}>
+                        {sk.toUpperCase()}
+                        {index !== skill.length - 1 && ", "}
+                      </span>
+                    ))
+                  : "No skills yet"}
+              </p>
+              {/* Education */}
+              <h1
+                className="text-center font-bold text-red-400 mb-1 border-b-[2px] border-b-red-400"
+                style={{ borderColor: themeColor, color: themeColor }}
+              >
+                EDUCATION
+              </h1>
+              <p style={{ whiteSpace: "pre-line" }} className=" break-words ">
+                {education?.length > 0
+                  ? education?.map((ed, index) => (
+                      <span key={index}>{ed?.toUpperCase()}</span>
+                    ))
+                  : "No education yet"}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

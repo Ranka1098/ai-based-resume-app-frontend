@@ -5,6 +5,9 @@ import { LuBrain } from "react-icons/lu";
 
 const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
   const { formData, setFormData, setRefreshResume } = useContext(FormContext);
+  const themeColor = formData?.themeColor || "#000";
+
+  const [focused, setFocused] = useState(null);
 
   const [aiDailougeBox, setAiDilougeBox] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -100,14 +103,18 @@ const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
     }
   };
   return (
-    <div className="max-w-3xl mx-auto ">
-      <div className="border p-6 border-t-[6px] border-t-purple-600 rounded-2xl bg-white shadow-md">
+    <div className="max-w-3xl mx-auto p-2">
+      <div
+        className="border p-6 border-t-[10px]  rounded-2xl bg-white shadow-md"
+        style={{ borderColor: themeColor }}
+      >
         <p className="text-3xl font-bold ">Projects</p>
         <div className="flex justify-between items-center">
           <h2 className="my-1 text-xl font-bold">Add your Projects</h2>
           <button
             onClick={() => setAiDilougeBox(true)}
             className="px-5 cursor-pointer py-1 border-[2px] border-purple-400 rounded-md hover:border-purple-600 flex gap-2 justify-between items-center"
+            style={{ borderColor: themeColor }}
             type="button"
           >
             <span>
@@ -132,7 +139,16 @@ const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
                 value={project.title}
                 onChange={(e) => handleChange(e, index)}
                 placeholder="Ai Based Resume Builder App"
-                className="border p-1 px-2 rounded-md focus:outline-purple-500"
+                onFocus={() => setFocused("title")}
+                onBlur={() => setFocused(null)}
+                className={`p-2 border rounded-md focus:outline-none ${
+                  focused === "title" ? "ring-2" : ""
+                }`}
+                style={{
+                  borderColor: focused === "title" ? themeColor : "#ccc",
+                  boxShadow:
+                    focused === "title" ? `0 0 0 2px ${themeColor}55` : "none",
+                }}
               />
             </div>
             <div className="flex flex-col gap-1 my-2">
@@ -144,8 +160,19 @@ const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
                 value={project.feature}
                 onChange={(e) => handleChange(e, index)}
                 placeholder="Ai Based Resume Builder App"
-                className="border p-1 px-2 rounded-md focus:outline-purple-500"
-              />
+                onFocus={() => setFocused("feature")}
+                onBlur={() => setFocused(null)}
+                className={`p-2 border rounded-md focus:outline-none ${
+                  focused === "feature" ? "ring-2" : ""
+                }`}
+                style={{
+                  borderColor: focused === "feature" ? themeColor : "#ccc",
+                  boxShadow:
+                    focused === "feature"
+                      ? `0 0 0 2px ${themeColor}55`
+                      : "none",
+                }}
+              ></textarea>
             </div>
             <hr className="my-5" />
             {/* button */}
@@ -180,6 +207,7 @@ const ProjectInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
             type="button"
             onClick={handleSubmit}
             className="w-full border p-2 rounded-md bg-purple-500 text-white "
+            style={{ background: themeColor }}
           >
             Submit
           </button>

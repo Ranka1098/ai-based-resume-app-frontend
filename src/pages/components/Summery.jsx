@@ -9,6 +9,8 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
   const [aiDailougeBox, setAiDilougeBox] = useState(false);
   const [aiInput, setAiInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const themeColor = formData?.themeColor || "#000";
+  const [focused, setFocused] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,19 +73,21 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
 
   return (
     <div>
-      <div className="max-w-3xl mx-auto my-6">
+      <div className="max-w-3xl mx-auto my-6 p-2">
         <form
           onSubmit={handleSubmit}
-          className="border p-6 border-t-[5px] border-t-purple-600 rounded-2xl bg-white shadow-lg"
+          className="border p-6 border-t-[10px]  rounded-2xl bg-white shadow-lg"
+          style={{ borderColor: themeColor }}
         >
-          <h1 className="text-2xl font-bold">Summery</h1>
+          <h1 className="text-xl md:text-2xl font-bold">Summery</h1>
           <h3 className="mt-1 font-semibold">Add Summery For Your Job</h3>
           <div className="mt-2 flex justify-between">
-            <p className="font-semibold">Add Summery</p>
+            <p className=" text-md font-semibold">Add Summery</p>
 
             <button
               onClick={() => setAiDilougeBox(true)}
-              className="px-5 cursor-pointer py-1 border-[2px] border-purple-400 rounded-md hover:border-purple-600 flex gap-2 justify-between items-center"
+              className="px-5 cursor-pointer py-1 border-[2px] rounded-md  flex gap-2 justify-between items-center text-sm"
+              style={{ borderColor: themeColor }}
               type="button"
             >
               <span>
@@ -98,11 +102,23 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
             rows={15}
             value={formData.summery || ""}
             onChange={handleChange}
-            className="border-[2px]  p-3 w-full max-h-[350px] text-xl  mt-3  rounded-md border-gray-500    overflow-y-auto"
             placeholder="Add Summery for your Resume"
+            onFocus={() => setFocused("summery")}
+            onBlur={() => setFocused(null)}
+            className={`p-2 w-full mt-2 border rounded-md focus:outline-none ${
+              focused === "summery" ? "ring-2" : ""
+            }`}
+            style={{
+              borderColor: focused === "summery" ? themeColor : "#ccc",
+              boxShadow:
+                focused === "summery" ? `0 0 0 2px ${themeColor}55` : "none",
+            }}
           ></textarea>
           <div className="flex justify-end rounded-md">
-            <button className="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition duration-300">
+            <button
+              className="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition duration-300"
+              style={{ background: themeColor }}
+            >
               Save
             </button>
           </div>
@@ -110,7 +126,7 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
 
         {/* dailouge box */}
         {aiDailougeBox ? (
-          <div className="fixed inset-0 bg-black/50 flex justify-center items-center  ">
+          <div className="fixed inset-0 bg-black/50 flex justify-center items-center p-2  ">
             <div className="w-[520px]  bg-white p-4 rounded-2xl">
               <div
                 onClick={() => setAiDilougeBox(!aiDailougeBox)}
@@ -142,17 +158,30 @@ const Summery = ({ id, activeFormIndex, setActiveFormIndex }) => {
               </div>
               <input
                 type="text"
+                name="aiInput"
                 required
                 value={aiInput}
                 onChange={(e) => setAiInput(e.target.value)}
                 placeholder="ask summery for job title..."
-                className=" pl-2 mt-2 border-[2px] text-black border-gray-400 p-1 w-full rounded hover:border-purple-500"
+                onFocus={() => setFocused("aiInput")}
+                onBlur={() => setFocused(null)}
+                className={`p-2 w-full mt-2 border rounded-md focus:outline-none ${
+                  focused === "aiInput" ? "ring-2" : ""
+                }`}
+                style={{
+                  borderColor: focused === "aiInput" ? themeColor : "#ccc",
+                  boxShadow:
+                    focused === "aiInput"
+                      ? `0 0 0 2px ${themeColor}55`
+                      : "none",
+                }}
               />
               <div className="  flex justify-center ">
                 <button
                   type="button"
                   onClick={handleAiSubmit}
-                  className="p-2 w-full cursor-pointer bg-purple-500 mt-2 rounded-md hover:bg-purple-600 hover:text-white"
+                  className="p-2 w-full cursor-pointer  mt-2 rounded-md  hover:text-white"
+                  style={{ background: themeColor }}
                 >
                   {loading ? "Generating..." : "Submit"}
                 </button>

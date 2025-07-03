@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import PersonalDetail from "./PersonalDetail";
 import { FaArrowLeft } from "react-icons/fa6";
@@ -9,15 +9,19 @@ import Skill from "./Skill";
 import Education from "./Education";
 import FullResume from "./FullResume";
 import ThemeColor from "./ThemeColor";
+import FormContext from "@/context/FormContext";
 
 const FormSection = ({ id }) => {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
+  const { formData } = useContext(FormContext);
+  const themeColor = formData?.themeColor || "#000";
+
   return (
     <>
-      <div>
+      <div className="">
         {/* Logo and Button */}
-        <div className="flex items-center justify-between mb-10">
-          <div>
+        <div className="flex items-center justify-between  m-2">
+          <div style={{ border: themeColor }}>
             <ThemeColor />
           </div>
 
@@ -25,6 +29,7 @@ const FormSection = ({ id }) => {
             {activeFormIndex > 1 ? (
               <button
                 onClick={() => setActiveFormIndex(activeFormIndex - 1)}
+                style={{ background: themeColor }}
                 className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md shadow-md"
               >
                 <FaArrowLeft />
@@ -36,6 +41,7 @@ const FormSection = ({ id }) => {
             ) : (
               <button
                 onClick={() => setActiveFormIndex(activeFormIndex + 1)}
+                style={{ background: themeColor }}
                 className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md shadow-md"
               >
                 Next <FaArrowRight />

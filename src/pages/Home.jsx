@@ -60,12 +60,12 @@ const Home = () => {
         <h1 className="text-center md:text-left text-3xl font-bold text-gray-800">
           My Resume
         </h1>
-        <p className="text-lg mt-2 text-gray-600">
+        <p className="text-md md:text-lg mt-2 text-gray-600 ">
           Start creating AI-powered resumes for your next job
         </p>
       </div>
       {/* ------------------------ */}
-      <div className="flex  gap-6 ">
+      <div className="md:flex  gap-6 ">
         <div className="mt-[-19px]  ">
           <AddButton onResumeAdded={createResume} />
         </div>

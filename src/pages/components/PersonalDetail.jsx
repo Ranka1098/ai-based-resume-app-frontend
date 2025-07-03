@@ -1,9 +1,12 @@
 import FormContext from "@/context/FormContext";
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
   const { formData, setFormData, setRefreshResume } = useContext(FormContext);
+  const themeColor = formData?.themeColor || "#000";
+
+  const [focused, setFocused] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,10 +57,11 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
     }
   };
   return (
-    <div className="max-w-3xl mx-auto my-6">
+    <div className="max-w-3xl mx-auto my-6 p-2">
       <form
         onSubmit={handleSubmit}
-        className="border p-6 border-t-[5px] border-t-purple-600 rounded-2xl bg-white shadow-lg"
+        className="border p-6 border-t-[10px] rounded-2xl bg-white shadow-lg"
+        style={{ borderColor: themeColor }}
       >
         <h2 className="text-2xl font-bold text-gray-800 mb-1">
           Personal Details
@@ -79,7 +83,18 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               onChange={handleChange}
               value={formData?.personalInfo?.firstName}
               placeholder="Enter first name"
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              onFocus={() => setFocused("firstName")}
+              onBlur={() => setFocused(null)}
+              className={`p-2 border rounded-md focus:outline-none ${
+                focused === "firstName" ? "ring-2" : ""
+              }`}
+              style={{
+                borderColor: focused === "firstName" ? themeColor : "#ccc",
+                boxShadow:
+                  focused === "firstName"
+                    ? `0 0 0 2px ${themeColor}55`
+                    : "none",
+              }}
             />
           </div>
 
@@ -95,7 +110,16 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               onChange={handleChange}
               value={formData?.personalInfo?.lastName}
               placeholder="Enter last name"
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              onFocus={() => setFocused("lastName")}
+              onBlur={() => setFocused(null)}
+              className={`p-2 border rounded-md focus:outline-none ${
+                focused === "lastName" ? "ring-2" : ""
+              }`}
+              style={{
+                borderColor: focused === "lastName" ? themeColor : "#ccc",
+                boxShadow:
+                  focused === "lastName" ? `0 0 0 2px ${themeColor}55` : "none",
+              }}
             />
           </div>
 
@@ -111,7 +135,16 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               onChange={handleChange}
               value={formData?.personalInfo?.jobTitle}
               placeholder="Enter job title"
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              onFocus={() => setFocused("jobTitle")}
+              onBlur={() => setFocused(null)}
+              className={`p-2 border rounded-md focus:outline-none ${
+                focused === "jobTitle" ? "ring-2" : ""
+              }`}
+              style={{
+                borderColor: focused === "jobTitle" ? themeColor : "#ccc",
+                boxShadow:
+                  focused === "jobTitle" ? `0 0 0 2px ${themeColor}55` : "none",
+              }}
             />
           </div>
 
@@ -127,7 +160,16 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               onChange={handleChange}
               value={formData?.personalInfo?.address}
               placeholder="Enter address"
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              onFocus={() => setFocused("address")}
+              onBlur={() => setFocused(null)}
+              className={`p-2 border rounded-md focus:outline-none ${
+                focused === "address" ? "ring-2" : ""
+              }`}
+              style={{
+                borderColor: focused === "address" ? themeColor : "#ccc",
+                boxShadow:
+                  focused === "address" ? `0 0 0 2px ${themeColor}55` : "none",
+              }}
             />
           </div>
 
@@ -144,7 +186,16 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               onChange={handleChange}
               value={formData?.personalInfo?.phone}
               placeholder="Enter phone number"
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              onFocus={() => setFocused("phone")}
+              onBlur={() => setFocused(null)}
+              className={`p-2 border rounded-md focus:outline-none ${
+                focused === "phone" ? "ring-2" : ""
+              }`}
+              style={{
+                borderColor: focused === "phone" ? themeColor : "#ccc",
+                boxShadow:
+                  focused === "phone" ? `0 0 0 2px ${themeColor}55` : "none",
+              }}
             />
           </div>
 
@@ -160,13 +211,23 @@ const PersonalDetail = ({ id, setActiveFormIndex, activeFormIndex }) => {
               onChange={handleChange}
               value={formData?.personalInfo?.email}
               placeholder="Enter email"
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              onFocus={() => setFocused("email")}
+              onBlur={() => setFocused(null)}
+              className={`p-2 border rounded-md focus:outline-none ${
+                focused === "email" ? "ring-2" : ""
+              }`}
+              style={{
+                borderColor: focused === "email" ? themeColor : "#ccc",
+                boxShadow:
+                  focused === "email" ? `0 0 0 2px ${themeColor}55` : "none",
+              }}
             />
           </div>
         </div>
 
         <button
           type="submit"
+          style={{ background: themeColor }}
           className="mt-6 w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-md transition duration-200"
         >
           Submit

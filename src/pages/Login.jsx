@@ -98,10 +98,10 @@ const Login = () => {
             <label className="block text-gray-700 mb-1 font-bold">
               Password
             </label>
-            <div>
+            <div className="relative mb-4">
               <input
                 type={showPassword ? "password" : "text"}
-                className="w-full p-2 border border-gray-300 rounded-md mb-4"
+                className="w-full p-2 pr-10 border border-gray-300 rounded-md"
                 placeholder="Enter your password.."
                 name="password"
                 autoComplete="current-password"
@@ -109,17 +109,18 @@ const Login = () => {
                 onChange={onchageHandler}
               />
               <button
-                className="absolute top-[61%] md:right-[40%] right-28  text-gray-600"
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-600"
               >
                 {showPassword ? (
-                  <FaEyeSlash size={25} />
+                  <FaEyeSlash size={20} />
                 ) : (
-                  <BsEyeFill size={25} />
+                  <BsEyeFill size={20} />
                 )}
               </button>
             </div>
+
             <button
               type="submit"
               className="w-full bg-purple-700 text-white py-2 rounded-md hover:bg-purple-800"

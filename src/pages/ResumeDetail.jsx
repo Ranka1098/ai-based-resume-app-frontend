@@ -6,7 +6,7 @@ import ResumePreviewSection from "./components/ResumePreviewSection";
 const ResumeDetail = () => {
   const { id } = useParams();
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 mx-16 py-5 gap-10">
+    <div className="md:grid grid-cols-1 md:grid-cols-2 md:mx-16 md:py-5 gap-10">
       <FormSection id={id} />
 
       <ResumePreviewSection id={id} />

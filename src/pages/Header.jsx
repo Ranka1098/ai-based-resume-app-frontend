@@ -29,28 +29,34 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between items-center px-6 py-2 shadow-md bg-white sticky top-0 z-50 ">
+    <div className="flex justify-between items-center px-2 py-2 shadow-md bg-white sticky top-0 z-50 ">
       <div className=" ">
         <Link to={"/"}>
-          <img src={LOGO} alt="logo" className="w-16 sm:w-20 md:w-[65px]" />
+          <img src={LOGO} alt="logo" className=" w-12 md:w-[65px]" />
         </Link>
       </div>
-      <p className="font-sans font-bold md:text-2xl">
+      <p className="font-sans font-bold text-[0.7rem] md:text-2xl">
         AI BASED RESUME BUILDER APP
       </p>
 
       <div>
         {location.pathname === "/" && (
-          <div className="border-2 0  border-black p-2 rounded-full cursor-pointer">
-            <p onClick={() => setShowUser(!showuser)}>
-              <FaUser size={25} />
+          <div
+            onClick={() => setShowUser(!showuser)}
+            className="border-2   border-black p-2 rounded-full cursor-pointer"
+          >
+            <p>
+              <FaUser size={20} />
             </p>
           </div>
         )}
       </div>
 
       {showuser && user && (
-        <div className="absolute mr-1 right-0 top-13 mt-2  bg-gray-200 shadow-md rounded-md p-1 border z-10">
+        <div
+          onClick={() => setShowUser(!showuser)}
+          className="absolute mr-1 right-0 top-13 mt-2  bg-gray-200 shadow-md rounded-md p-1 border z-10"
+        >
           <p className="text-md md:font-semibold text-center">{user?.name}</p>
           <p className="text-xs md:text-sm text-gray-700 mb-3">{user?.email}</p>
           <button

@@ -4,6 +4,8 @@ import React, { useContext, useState } from "react";
 
 const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
   const { formData, setFormData, setRefreshResume } = useContext(FormContext);
+  const themeColor = formData?.themeColor || "#000";
+  const [focused, setFocused] = useState(null);
 
   const handleChange = (e, index) => {
     const { name, value } = e.target;
@@ -110,8 +112,11 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto ">
-      <div className="border p-6 border-t-[6px] border-t-purple-600 rounded-2xl bg-white shadow-md">
+    <div className="max-w-3xl mx-auto p-2">
+      <div
+        className="border p-6 border-t-[10px]  rounded-2xl bg-white shadow-md "
+        style={{ borderColor: themeColor }}
+      >
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold text-gray-800 mb-1">
             Professional Experince
@@ -120,7 +125,8 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
           <button
             type="button"
             onClick={handleSkip}
-            className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-all"
+            className="px-3 md:px-6 md:py-2 text-sm md:text-md text-white rounded-md  transition-all"
+            style={{ background: themeColor }}
           >
             Skip
           </button>
@@ -142,7 +148,19 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
                   value={item.designation}
                   onChange={(e) => handleChange(e, index)}
                   placeholder="e.g., Software Engineer"
-                  className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  onFocus={() => setFocused("designation")}
+                  onBlur={() => setFocused(null)}
+                  className={`p-2 border rounded-md focus:outline-none ${
+                    focused === "designation" ? "ring-2" : ""
+                  }`}
+                  style={{
+                    borderColor:
+                      focused === "designation" ? themeColor : "#ccc",
+                    boxShadow:
+                      focused === "designation"
+                        ? `0 0 0 2px ${themeColor}55`
+                        : "none",
+                  }}
                 />
               </div>
               {/* ------------------ */}
@@ -155,7 +173,19 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
                   value={item.companyName}
                   onChange={(e) => handleChange(e, index)}
                   placeholder="e.g., Google"
-                  className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  onFocus={() => setFocused("companyName")}
+                  onBlur={() => setFocused(null)}
+                  className={`p-2 border rounded-md focus:outline-none ${
+                    focused === "companyName" ? "ring-2" : ""
+                  }`}
+                  style={{
+                    borderColor:
+                      focused === "companyName" ? themeColor : "#ccc",
+                    boxShadow:
+                      focused === "companyName"
+                        ? `0 0 0 2px ${themeColor}55`
+                        : "none",
+                  }}
                 />
               </div>
               {/* --------------------------------- */}
@@ -168,7 +198,16 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
                   value={item.city}
                   onChange={(e) => handleChange(e, index)}
                   placeholder="e.g., Mumbai"
-                  className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  onFocus={() => setFocused("city")}
+                  onBlur={() => setFocused(null)}
+                  className={`p-2 border rounded-md focus:outline-none ${
+                    focused === "city" ? "ring-2" : ""
+                  }`}
+                  style={{
+                    borderColor: focused === "city" ? themeColor : "#ccc",
+                    boxShadow:
+                      focused === "city" ? `0 0 0 2px ${themeColor}55` : "none",
+                  }}
                 />
               </div>
               {/* --------------------------------- */}
@@ -182,7 +221,18 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
                   value={item.state}
                   onChange={(e) => handleChange(e, index)}
                   placeholder="e.g., Maharashtra"
-                  className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  onFocus={() => setFocused("state")}
+                  onBlur={() => setFocused(null)}
+                  className={`p-2 border rounded-md focus:outline-none ${
+                    focused === "state" ? "ring-2" : ""
+                  }`}
+                  style={{
+                    borderColor: focused === "state" ? themeColor : "#ccc",
+                    boxShadow:
+                      focused === "state"
+                        ? `0 0 0 2px ${themeColor}55`
+                        : "none",
+                  }}
                 />
               </div>
               {/* --------------------------------- */}
@@ -195,7 +245,18 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
                   required
                   value={item.startDate}
                   onChange={(e) => handleChange(e, index)}
-                  className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  onFocus={() => setFocused("startDate")}
+                  onBlur={() => setFocused(null)}
+                  className={`p-2 border rounded-md focus:outline-none ${
+                    focused === "startDate" ? "ring-2" : ""
+                  }`}
+                  style={{
+                    borderColor: focused === "startDate" ? themeColor : "#ccc",
+                    boxShadow:
+                      focused === "startDate"
+                        ? `0 0 0 2px ${themeColor}55`
+                        : "none",
+                  }}
                 />
               </div>
               {/* --------------------------------- */}
@@ -207,7 +268,18 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
                   name="endDate"
                   value={item.endDate}
                   onChange={(e) => handleChange(e, index)}
-                  className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  onFocus={() => setFocused("endDate")}
+                  onBlur={() => setFocused(null)}
+                  className={`p-2 border rounded-md focus:outline-none ${
+                    focused === "endDate" ? "ring-2" : ""
+                  }`}
+                  style={{
+                    borderColor: focused === "endDate" ? themeColor : "#ccc",
+                    boxShadow:
+                      focused === "endDate"
+                        ? `0 0 0 2px ${themeColor}55`
+                        : "none",
+                  }}
                 />
               </div>
               {/* --------------------------------- */}
@@ -219,7 +291,18 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
                 value={item.workSummery}
                 name="workSummery"
                 onChange={(e) => handleChange(e, index)}
-                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                onFocus={() => setFocused("workSummery")}
+                onBlur={() => setFocused(null)}
+                className={`p-2 border rounded-md focus:outline-none ${
+                  focused === "workSummery" ? "ring-2" : ""
+                }`}
+                style={{
+                  borderColor: focused === "workSummery" ? themeColor : "#ccc",
+                  boxShadow:
+                    focused === "workSummery"
+                      ? `0 0 0 2px ${themeColor}55`
+                      : "none",
+                }}
               />
             </div>
             <hr className="my-5 h-[1rem]" />
@@ -248,7 +331,8 @@ const ProfessionalInfo = ({ id, activeFormIndex, setActiveFormIndex }) => {
           <button
             type="button"
             onClick={handleSubmit}
-            className="px-6 w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-all"
+            className="px-6 w-full py-2  text-white rounded-md  transition-all"
+            style={{ background: themeColor }}
           >
             Save
           </button>

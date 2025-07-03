@@ -7,6 +7,9 @@ const Education = ({ id }) => {
   const { formData, setFormData, setRefreshResume } = useContext(FormContext);
   const [inputEducation, setInputEducation] = useState("");
   const navigate = useNavigate();
+  const themeColor = formData?.themeColor || "#000";
+
+  const [focused, setFocused] = useState(null);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -50,8 +53,11 @@ const Education = ({ id }) => {
     }
   };
   return (
-    <div className="max-w-3xl mx-auto ">
-      <div className="border p-6 border-t-[6px] border-t-purple-600 rounded-2xl bg-white shadow-md">
+    <div className="max-w-3xl mx-auto p-2">
+      <div
+        className="border p-6 border-t-[10px]  rounded-2xl bg-white shadow-md"
+        style={{ borderColor: themeColor }}
+      >
         <h2 className="text-3xl font-bold text-gray-800 mb-1">Education</h2>
         <p className="my-1 ">Add You Education</p>
 
@@ -60,16 +66,32 @@ const Education = ({ id }) => {
             Enter Your Education
           </label>
           <textarea
-            className="border p-5 w-full my-2 rounded-md focus:outline-purple-600"
             placeholder="Education:BSC Com.Sci from AM Colleage Pune university"
             value={inputEducation}
             onChange={handleChange}
+            onFocus={() => setFocused("firstName")}
+            onBlur={() => setFocused(null)}
+            className={`focus:outline-none border p-5 w-full my-2 rounded-md ${
+              focused === "firstName" ? "ring-2" : ""
+            }`}
+            style={{
+              borderColor: focused === "firstName" ? themeColor : "#ccc",
+              boxShadow:
+                focused === "firstName" ? `0 0 0 2px ${themeColor}55` : "none",
+            }}
           ></textarea>
           <div
             onClick={handleAddEducation}
             className=" text-center cursor-pointer bg-purple-500 text-white mt-5 border p-2 rounded-md"
+            style={{ background: themeColor }}
           >
-            <button type="button">Add Your Education</button>
+            <button
+              type="button"
+              style={{ background: themeColor }}
+              className="cursor-pointer"
+            >
+              Add Your Education
+            </button>
           </div>
         </div>
       </div>
